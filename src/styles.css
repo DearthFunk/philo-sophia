@@ -1,0 +1,56 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  padding: 20px;
+  background-color: lightgoldenrodyellow;
+}
+
+#search-input {
+  font-size: 20px;
+  margin: 20px 0;
+  color: darkslategrey;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid;
+}
+
+p {
+  font-style: italic;
+  font-size: 16px;
+}
+
+.result,
+.found-word {
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid transparent;
+}
+
+.result:hover {
+  border: 1px solid lightgrey;
+}
+
+.found-words {
+  margin-top: 5px;
+}
+
+.found-word {
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 6px;
+  background: gainsboro;
+  text-align: left;
+}
+
+.found-word:hover {
+  border: 1px solid dodgerblue;
+}
+
+.found-word span {
+  font-style: italic;
+}
