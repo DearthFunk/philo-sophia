@@ -1,0 +1,2 @@
+# philo-sophia
+philosophy terms
