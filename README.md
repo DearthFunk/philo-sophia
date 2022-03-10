@@ -20,9 +20,9 @@ panentheism - all things are a contained in god
 deism - god created universe and set it up, but does not intervene  
 dualism - seperation of mind/matter; mind/body can function seperately  
 neoplatonism - platonism + aristotelianism + oriental mysticism  
-ultimate - last in series/process/progression (syn: last); eventual; fundemental; elemental;
+ultimate - last in series/process/progression (syn: last); eventual; fundemental; elemental;  
 fundemental - of or relating to the foundation or base  
-ontology - The branch of metaphysics that deals with the nature of being.
+ontology - The branch of metaphysics that deals with the nature of being.  
 teleology - natural phenomena  
 epistemology - nature of knowing  
 nature - the material world and its phenomena
