@@ -2,6 +2,10 @@
 
 Bunch of short definitions used as a quick reference guide for stupid philosophy discussions online. Words and their definitions are stupid.
 
+**Reasons Group Conversations Fail**
+5 people talking about X, 30min later (people come/go), 5 different people now talking about some permutation of X  
+no face = no understanding (smile vs frown after statement)
+
 **Short Definitions**  
 fallabalism - knowledge does not require certainty  
 platonsim - abstract objects exist  
@@ -29,6 +33,7 @@ nature - the material world and its phenomena
 
 # To Do
 
+fact - what the world is made of?
 sophistry / sophist -  
 psr (principle sufficient reasoning) -  
 prediction vs postdiction -  
@@ -54,3 +59,10 @@ inductive -
 contadictions -  
 synthetic/analytic disctinction -  
 concrete objects? -
+dualism vs nominalism -
+Anarcho-syndicalism -
+explication -
+primitives -
+litnus test -
+paraconsistent -
+epilogue =
