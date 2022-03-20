@@ -1,0 +1,26 @@
+{
+  "name": "philo-sophia",
+  "version": "1.0.0",
+  "description": "Bunch of short definitions used as a quick reference guide for stupid philosophy discussions online. Words and their definitions are stupid.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DearthFunk/philo-sophia.git"
+  },
+  "keywords": [
+    "philosophy"
+  ],
+  "author": "dearth funk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DearthFunk/philo-sophia/issues"
+  },
+  "homepage": "https://github.com/DearthFunk/philo-sophia#readme",
+  "dependencies": {
+    "serve": "^13.0.2"
+  },
+  "type": "module"
+}

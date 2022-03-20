@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Philosopher", sans-serif;
+  overflow: hidden;
+  padding: 20px;
+}
+
+#search-input {
+  font-size: 20px;
+  margin: 20px 0;
+  color: #0000bb;
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid;
+}
