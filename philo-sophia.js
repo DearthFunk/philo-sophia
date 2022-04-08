@@ -77,4 +77,6 @@ export default {
   "gettier cases": "",
   "platonic form: ": "",
   "pauli exclusion principle": "",
+  scientism:
+    "The collection of attitudes and practices considered typical of scientists",
 };
