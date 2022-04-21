@@ -1,4 +1,5 @@
 import dictionaryJson from "./philo-sophia.js";
+import Mustache from "./node_modules/mustache/mustache.mjs";
 
 let results = [];
 let dictionary;
@@ -27,46 +28,21 @@ function processDictionary() {
   });
 }
 
-function resetResults() {
-  results = [];
-  resultsElement.innerHTML = null;
+function foundWordDefinition() {
+  return dictionary.find((item) => item.word === this).definition;
 }
 
-function updateResults(searchTerm) {
+async function inputUpdated() {
+  let searchTerm = searchElement.value;
   results = dictionary.filter((definition) =>
     definition.word.includes(searchTerm)
   );
-}
-
-function renderResults() {
-  results.forEach((item) => {
-    let listItem = document.createElement("li");
-    let titleElement = document.createElement("span");
-    titleElement.appendChild(document.createTextNode(`${item.word}: `));
-    listItem.appendChild(titleElement);
-    listItem.appendChild(document.createTextNode(item.definition));
-
-    if (item.foundWords.length) {
-      let descriptionList = document.createElement("dl");
-
-      item.foundWords.forEach((foundWord) => {
-        let { definition } = dictionary.find((item) => item.word === foundWord);
-        let dt = document.createElement("dt");
-        let dd = document.createElement("dd");
-        dt.appendChild(document.createTextNode(`${foundWord}: `));
-        dd.appendChild(document.createTextNode(definition));
-        descriptionList.appendChild(dt);
-        descriptionList.appendChild(dd);
-      });
-      listItem.appendChild(descriptionList);
-    }
-    resultsElement.appendChild(listItem);
+  let template = await fetch("result.mustache").then((response) =>
+    response.text()
+  );
+  let renderedTemplate = Mustache.render(template, {
+    results,
+    foundWordDefinition,
   });
-}
-
-function inputUpdated() {
-  let searchTerm = searchElement.value;
-  resetResults();
-  updateResults(searchTerm);
-  renderResults();
+  resultsElement.innerHTML = renderedTemplate;
 }
