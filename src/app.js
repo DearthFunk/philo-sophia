@@ -1,5 +1,6 @@
 import dictionaryJson from "./philo-sophia.js";
-import Mustache from "./node_modules/mustache/mustache.mjs";
+import Mustache from "../node_modules/mustache/mustache";
+import "./app.css";
 
 let results = [];
 let dictionary;

@@ -2,10 +2,13 @@
   "name": "philo-sophia",
   "version": "1.0.0",
   "description": "Bunch of short definitions used as a quick reference guide for stupid philosophy discussions online. Words and their definitions are stupid.",
-  "main": "app.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "build": "npx webpack",
+    "serve": "npx serve",
+    "app": "npm run build && npm run serve dist"
   },
   "repository": {
     "type": "git",
@@ -21,18 +24,24 @@
   },
   "homepage": "https://github.com/DearthFunk/philo-sophia#readme",
   "dependencies": {
-    "handlebars": "^4.7.7",
-    "serve": "^13.0.2"
+    "mustache": "^4.2.0"
   },
-  "type": "module",
   "lint-staged": {
-    "**/*": "prettier --check --ignore-unknown"
+    "**/*": "prettier --write --ignore-unknown"
   },
   "devDependencies": {
+    "copy-webpack-plugin": "^10.2.4",
+    "css-loader": "^6.7.1",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
+    "html-webpack-plugin": "^5.5.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.4.0",
-    "prettier": "2.6.2"
+    "mustache-loader": "^1.4.3",
+    "prettier": "2.6.2",
+    "serve": "^13.0.2",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2"
   }
 }
