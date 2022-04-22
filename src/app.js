@@ -43,13 +43,23 @@ function foundWordDefinition() {
   return terms.find((item) => item.word === this).definition;
 }
 
+function loadTerm({ currentTarget }) {
+  let { id } = currentTarget;
+  searchElement.value = id;
+  inputUpdated();
+}
+
 async function inputUpdated() {
   let searchTerm = searchElement.value;
   results = terms.filter((definition) => definition.word.includes(searchTerm));
-
   let renderedTemplate = Mustache.render(template, {
     results,
     foundWordDefinition,
   });
   resultsElement.innerHTML = renderedTemplate;
+
+  let buttons = document.getElementsByClassName("found-word");
+  for (const button of buttons) {
+    button.onclick = loadTerm;
+  }
 }

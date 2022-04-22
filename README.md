@@ -7,13 +7,14 @@ The idea is to type in a word (responsive input), see its definition, then (TODO
 Words and their definitions are stupid.
 
 # Running
+
 option 1 (online): click the link above and just open it in the browser
-option 2 (local): 
-  - clone the repo
-  - use `npm run app` to build and serve it
-  - note: the /src directory contains the content to build using webpack which ends up in the /dist directory
+option 2 (local):
+
+- clone the repo
+- use `npm run app` to build and serve it
+- note: the /src directory contains the content to build using webpack which ends up in the /dist directory
 
 # To Do
-- click action on sub-definition should load it
-- keyboard shortcuts to navigate through list
+
 - api hookup to pull in external info (wiktionary, https://plato.stanford.edu/), etc.. )

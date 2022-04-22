@@ -17,7 +17,7 @@
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  font-family: \"Nunito\", sans-serif;\n  padding: 20px;\n  background-color: lightgoldenrodyellow;\n}\n\n#search-input {\n  font-size: 20px;\n  margin: 20px 0;\n  color: #0000bb;\n  padding: 5px;\n  border-radius: 4px;\n  border: 1px solid;\n}\n\np {\n  font-style: italic;\n  font-size: 16px;\n}\n\n.result,\n.found-word {\n  border-radius: 10px;\n  padding: 10px;\n  border: 1px solid transparent;\n}\n\n.result:hover {\n  border: 1px solid lightgrey;\n}\n\n.found-words {\n  margin-top: 5px;\n}\n\n.found-word {\n  font-size: 14px;\n  cursor: pointer;\n  border-radius: 10px;\n  padding: 6px;\n}\n\n.found-word:hover {\n  background-color: white;\n}\n\n.found-word span {\n  font-weight: bold;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  font-family: \"Nunito\", sans-serif;\n  padding: 20px;\n  background-color: lightgoldenrodyellow;\n}\n\n#search-input {\n  font-size: 20px;\n  margin: 20px 0;\n  color: darkslategrey;\n  padding: 5px;\n  border-radius: 5px;\n  border: 1px solid;\n}\n\np {\n  font-style: italic;\n  font-size: 16px;\n}\n\n.result,\n.found-word {\n  border-radius: 5px;\n  padding: 10px;\n  border: 1px solid transparent;\n}\n\n.result:hover {\n  border: 1px solid lightgrey;\n}\n\n.found-words {\n  margin-top: 5px;\n}\n\n.found-word {\n  font-size: 14px;\n  cursor: pointer;\n  border-radius: 10px;\n  padding: 6px;\n  background: gainsboro;\n  text-align: left;\n}\n\n.found-word:hover {\n  border: 1px solid dodgerblue;\n}\n\n.found-word span {\n  font-style: italic;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1437,6 +1437,7 @@ async function LoadTerms() {
     definition: philo_sophia[k],
     foundWords: [],
   }));
+
   //for each term, break up the definition into an array
   //and collect any words that also exist in the terms
   terms.forEach((item) => {
@@ -1448,25 +1449,36 @@ async function LoadTerms() {
     item.foundWords = foundWords;
   });
 
+  //get and store the template for re-use
   template = await fetch("result.mustache").then((response) => response.text());
-  inputUpdated(); //execute with no input results in full list results
+
+  //execute with no input results in full list results
+  inputUpdated();
 }
 
 function foundWordDefinition() {
   return terms.find((item) => item.word === this).definition;
 }
 
+function loadTerm({currentTarget}) {
+  let { id } = currentTarget;
+  searchElement.value = id;
+  inputUpdated();
+}
+
 async function inputUpdated() {
   let searchTerm = searchElement.value;
-  results = terms.filter((definition) =>
-    definition.word.includes(searchTerm)
-  );
-
+  results = terms.filter((definition) => definition.word.includes(searchTerm));
   let renderedTemplate = mustache_default().render(template, {
     results,
-    foundWordDefinition,
+    foundWordDefinition
   });
   resultsElement.innerHTML = renderedTemplate;
+
+  let buttons = document.getElementsByClassName('found-word');
+  for (const button of buttons) {
+    button.onclick = loadTerm;
+  }
 }
 
 })();

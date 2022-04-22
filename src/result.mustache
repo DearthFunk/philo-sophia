@@ -4,9 +4,9 @@
     <p>{{definition}}</p>
     {{#foundWords}}
       <div class="found-words">
-        <div class="found-word">
-          <span>{{.}}</span>: {{foundWordDefinition}}
-        </div>
+        <button class="found-word" id="{{.}}">
+          <b>{{.}}</b>: <span>{{foundWordDefinition}}</span>
+        </button>
       </div>
     {{/foundWords}}
   </div>
