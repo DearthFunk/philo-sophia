@@ -1420,44 +1420,48 @@ var update = injectStylesIntoStyleTag_default()(app/* default */.Z, options);
 
 
 let results = [];
-let dictionary;
+let terms;
+let template;
 let resultsElement = document.getElementById("results");
 let searchElement = document.getElementById("search-input");
 searchElement.oninput = inputUpdated;
 
-processDictionary();
-inputUpdated(); //execute with no input results in full list results
+LoadTerms();
 
 //////////////////////////////////////////////
 
-function processDictionary() {
-  dictionary = Object.keys(philo_sophia).map((k) => ({
+async function LoadTerms() {
+  //map the terms an array of objects
+  terms = Object.keys(philo_sophia).map((k) => ({
     word: k,
     definition: philo_sophia[k],
     foundWords: [],
   }));
-  dictionary.forEach((item) => {
-    let dictionaryWords = Object.keys(philo_sophia);
+  //for each term, break up the definition into an array
+  //and collect any words that also exist in the terms
+  terms.forEach((item) => {
+    let termsWords = Object.keys(philo_sophia);
     let definitionWords = item.definition.split(" ");
     let foundWords = definitionWords.filter((word) =>
-      dictionaryWords.includes(word)
+      termsWords.includes(word)
     );
     item.foundWords = foundWords;
   });
+
+  template = await fetch("result.mustache").then((response) => response.text());
+  inputUpdated(); //execute with no input results in full list results
 }
 
 function foundWordDefinition() {
-  return dictionary.find((item) => item.word === this).definition;
+  return terms.find((item) => item.word === this).definition;
 }
 
 async function inputUpdated() {
   let searchTerm = searchElement.value;
-  results = dictionary.filter((definition) =>
+  results = terms.filter((definition) =>
     definition.word.includes(searchTerm)
   );
-  let template = await fetch("result.mustache").then((response) =>
-    response.text()
-  );
+
   let renderedTemplate = mustache_default().render(template, {
     results,
     foundWordDefinition,
