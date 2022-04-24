@@ -1,4 +1,4 @@
-Run It: https://dearthfunk.github.io/philo-sophia/
+Run It: https://dearthfunk.github.io/philo-sophia/dist
 
 # philo-sophia
 
@@ -17,4 +17,5 @@ option 2 (local):
 
 # To Do
 
-- api hookup to pull in external info (wiktionary, https://plato.stanford.edu/), etc.. )
+- api hookup to pull in (if open) external info maybe (wiktionary, https://plato.stanford.edu/, https://yourlogicalfallacyis.com/, etc.. )
+- the mustache template file should not sit in dist/ it should be part of the webpack build (in app.js)
