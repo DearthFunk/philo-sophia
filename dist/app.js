@@ -1,10 +1,10 @@
 /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
 /***/ 780:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Z": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
@@ -27,7 +27,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n}\n\
 /***/ 645:
 /***/ ((module) => {
 
-"use strict";
 
 
 /*
@@ -136,7 +135,6 @@ module.exports = function (cssWithMappingToString) {
 /***/ 81:
 /***/ ((module) => {
 
-"use strict";
 
 
 module.exports = function (i) {
@@ -145,788 +143,9 @@ module.exports = function (i) {
 
 /***/ }),
 
-/***/ 466:
-/***/ (function(module) {
-
-(function (global, factory) {
-   true ? module.exports = factory() :
-  0;
-}(this, (function () { 'use strict';
-
-  /*!
-   * mustache.js - Logic-less {{mustache}} templates with JavaScript
-   * http://github.com/janl/mustache.js
-   */
-
-  var objectToString = Object.prototype.toString;
-  var isArray = Array.isArray || function isArrayPolyfill (object) {
-    return objectToString.call(object) === '[object Array]';
-  };
-
-  function isFunction (object) {
-    return typeof object === 'function';
-  }
-
-  /**
-   * More correct typeof string handling array
-   * which normally returns typeof 'object'
-   */
-  function typeStr (obj) {
-    return isArray(obj) ? 'array' : typeof obj;
-  }
-
-  function escapeRegExp (string) {
-    return string.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&');
-  }
-
-  /**
-   * Null safe way of checking whether or not an object,
-   * including its prototype, has a given property
-   */
-  function hasProperty (obj, propName) {
-    return obj != null && typeof obj === 'object' && (propName in obj);
-  }
-
-  /**
-   * Safe way of detecting whether or not the given thing is a primitive and
-   * whether it has the given property
-   */
-  function primitiveHasOwnProperty (primitive, propName) {
-    return (
-      primitive != null
-      && typeof primitive !== 'object'
-      && primitive.hasOwnProperty
-      && primitive.hasOwnProperty(propName)
-    );
-  }
-
-  // Workaround for https://issues.apache.org/jira/browse/COUCHDB-577
-  // See https://github.com/janl/mustache.js/issues/189
-  var regExpTest = RegExp.prototype.test;
-  function testRegExp (re, string) {
-    return regExpTest.call(re, string);
-  }
-
-  var nonSpaceRe = /\S/;
-  function isWhitespace (string) {
-    return !testRegExp(nonSpaceRe, string);
-  }
-
-  var entityMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;',
-    '/': '&#x2F;',
-    '`': '&#x60;',
-    '=': '&#x3D;'
-  };
-
-  function escapeHtml (string) {
-    return String(string).replace(/[&<>"'`=\/]/g, function fromEntityMap (s) {
-      return entityMap[s];
-    });
-  }
-
-  var whiteRe = /\s*/;
-  var spaceRe = /\s+/;
-  var equalsRe = /\s*=/;
-  var curlyRe = /\s*\}/;
-  var tagRe = /#|\^|\/|>|\{|&|=|!/;
-
-  /**
-   * Breaks up the given `template` string into a tree of tokens. If the `tags`
-   * argument is given here it must be an array with two string values: the
-   * opening and closing tags used in the template (e.g. [ "<%", "%>" ]). Of
-   * course, the default is to use mustaches (i.e. mustache.tags).
-   *
-   * A token is an array with at least 4 elements. The first element is the
-   * mustache symbol that was used inside the tag, e.g. "#" or "&". If the tag
-   * did not contain a symbol (i.e. {{myValue}}) this element is "name". For
-   * all text that appears outside a symbol this element is "text".
-   *
-   * The second element of a token is its "value". For mustache tags this is
-   * whatever else was inside the tag besides the opening symbol. For text tokens
-   * this is the text itself.
-   *
-   * The third and fourth elements of the token are the start and end indices,
-   * respectively, of the token in the original template.
-   *
-   * Tokens that are the root node of a subtree contain two more elements: 1) an
-   * array of tokens in the subtree and 2) the index in the original template at
-   * which the closing tag for that section begins.
-   *
-   * Tokens for partials also contain two more elements: 1) a string value of
-   * indendation prior to that tag and 2) the index of that tag on that line -
-   * eg a value of 2 indicates the partial is the third tag on this line.
-   */
-  function parseTemplate (template, tags) {
-    if (!template)
-      return [];
-    var lineHasNonSpace = false;
-    var sections = [];     // Stack to hold section tokens
-    var tokens = [];       // Buffer to hold the tokens
-    var spaces = [];       // Indices of whitespace tokens on the current line
-    var hasTag = false;    // Is there a {{tag}} on the current line?
-    var nonSpace = false;  // Is there a non-space char on the current line?
-    var indentation = '';  // Tracks indentation for tags that use it
-    var tagIndex = 0;      // Stores a count of number of tags encountered on a line
-
-    // Strips all whitespace tokens array for the current line
-    // if there was a {{#tag}} on it and otherwise only space.
-    function stripSpace () {
-      if (hasTag && !nonSpace) {
-        while (spaces.length)
-          delete tokens[spaces.pop()];
-      } else {
-        spaces = [];
-      }
-
-      hasTag = false;
-      nonSpace = false;
-    }
-
-    var openingTagRe, closingTagRe, closingCurlyRe;
-    function compileTags (tagsToCompile) {
-      if (typeof tagsToCompile === 'string')
-        tagsToCompile = tagsToCompile.split(spaceRe, 2);
-
-      if (!isArray(tagsToCompile) || tagsToCompile.length !== 2)
-        throw new Error('Invalid tags: ' + tagsToCompile);
-
-      openingTagRe = new RegExp(escapeRegExp(tagsToCompile[0]) + '\\s*');
-      closingTagRe = new RegExp('\\s*' + escapeRegExp(tagsToCompile[1]));
-      closingCurlyRe = new RegExp('\\s*' + escapeRegExp('}' + tagsToCompile[1]));
-    }
-
-    compileTags(tags || mustache.tags);
-
-    var scanner = new Scanner(template);
-
-    var start, type, value, chr, token, openSection;
-    while (!scanner.eos()) {
-      start = scanner.pos;
-
-      // Match any text between tags.
-      value = scanner.scanUntil(openingTagRe);
-
-      if (value) {
-        for (var i = 0, valueLength = value.length; i < valueLength; ++i) {
-          chr = value.charAt(i);
-
-          if (isWhitespace(chr)) {
-            spaces.push(tokens.length);
-            indentation += chr;
-          } else {
-            nonSpace = true;
-            lineHasNonSpace = true;
-            indentation += ' ';
-          }
-
-          tokens.push([ 'text', chr, start, start + 1 ]);
-          start += 1;
-
-          // Check for whitespace on the current line.
-          if (chr === '\n') {
-            stripSpace();
-            indentation = '';
-            tagIndex = 0;
-            lineHasNonSpace = false;
-          }
-        }
-      }
-
-      // Match the opening tag.
-      if (!scanner.scan(openingTagRe))
-        break;
-
-      hasTag = true;
-
-      // Get the tag type.
-      type = scanner.scan(tagRe) || 'name';
-      scanner.scan(whiteRe);
-
-      // Get the tag value.
-      if (type === '=') {
-        value = scanner.scanUntil(equalsRe);
-        scanner.scan(equalsRe);
-        scanner.scanUntil(closingTagRe);
-      } else if (type === '{') {
-        value = scanner.scanUntil(closingCurlyRe);
-        scanner.scan(curlyRe);
-        scanner.scanUntil(closingTagRe);
-        type = '&';
-      } else {
-        value = scanner.scanUntil(closingTagRe);
-      }
-
-      // Match the closing tag.
-      if (!scanner.scan(closingTagRe))
-        throw new Error('Unclosed tag at ' + scanner.pos);
-
-      if (type == '>') {
-        token = [ type, value, start, scanner.pos, indentation, tagIndex, lineHasNonSpace ];
-      } else {
-        token = [ type, value, start, scanner.pos ];
-      }
-      tagIndex++;
-      tokens.push(token);
-
-      if (type === '#' || type === '^') {
-        sections.push(token);
-      } else if (type === '/') {
-        // Check section nesting.
-        openSection = sections.pop();
-
-        if (!openSection)
-          throw new Error('Unopened section "' + value + '" at ' + start);
-
-        if (openSection[1] !== value)
-          throw new Error('Unclosed section "' + openSection[1] + '" at ' + start);
-      } else if (type === 'name' || type === '{' || type === '&') {
-        nonSpace = true;
-      } else if (type === '=') {
-        // Set the tags for the next time around.
-        compileTags(value);
-      }
-    }
-
-    stripSpace();
-
-    // Make sure there are no open sections when we're done.
-    openSection = sections.pop();
-
-    if (openSection)
-      throw new Error('Unclosed section "' + openSection[1] + '" at ' + scanner.pos);
-
-    return nestTokens(squashTokens(tokens));
-  }
-
-  /**
-   * Combines the values of consecutive text tokens in the given `tokens` array
-   * to a single token.
-   */
-  function squashTokens (tokens) {
-    var squashedTokens = [];
-
-    var token, lastToken;
-    for (var i = 0, numTokens = tokens.length; i < numTokens; ++i) {
-      token = tokens[i];
-
-      if (token) {
-        if (token[0] === 'text' && lastToken && lastToken[0] === 'text') {
-          lastToken[1] += token[1];
-          lastToken[3] = token[3];
-        } else {
-          squashedTokens.push(token);
-          lastToken = token;
-        }
-      }
-    }
-
-    return squashedTokens;
-  }
-
-  /**
-   * Forms the given array of `tokens` into a nested tree structure where
-   * tokens that represent a section have two additional items: 1) an array of
-   * all tokens that appear in that section and 2) the index in the original
-   * template that represents the end of that section.
-   */
-  function nestTokens (tokens) {
-    var nestedTokens = [];
-    var collector = nestedTokens;
-    var sections = [];
-
-    var token, section;
-    for (var i = 0, numTokens = tokens.length; i < numTokens; ++i) {
-      token = tokens[i];
-
-      switch (token[0]) {
-        case '#':
-        case '^':
-          collector.push(token);
-          sections.push(token);
-          collector = token[4] = [];
-          break;
-        case '/':
-          section = sections.pop();
-          section[5] = token[2];
-          collector = sections.length > 0 ? sections[sections.length - 1][4] : nestedTokens;
-          break;
-        default:
-          collector.push(token);
-      }
-    }
-
-    return nestedTokens;
-  }
-
-  /**
-   * A simple string scanner that is used by the template parser to find
-   * tokens in template strings.
-   */
-  function Scanner (string) {
-    this.string = string;
-    this.tail = string;
-    this.pos = 0;
-  }
-
-  /**
-   * Returns `true` if the tail is empty (end of string).
-   */
-  Scanner.prototype.eos = function eos () {
-    return this.tail === '';
-  };
-
-  /**
-   * Tries to match the given regular expression at the current position.
-   * Returns the matched text if it can match, the empty string otherwise.
-   */
-  Scanner.prototype.scan = function scan (re) {
-    var match = this.tail.match(re);
-
-    if (!match || match.index !== 0)
-      return '';
-
-    var string = match[0];
-
-    this.tail = this.tail.substring(string.length);
-    this.pos += string.length;
-
-    return string;
-  };
-
-  /**
-   * Skips all text until the given regular expression can be matched. Returns
-   * the skipped string, which is the entire tail if no match can be made.
-   */
-  Scanner.prototype.scanUntil = function scanUntil (re) {
-    var index = this.tail.search(re), match;
-
-    switch (index) {
-      case -1:
-        match = this.tail;
-        this.tail = '';
-        break;
-      case 0:
-        match = '';
-        break;
-      default:
-        match = this.tail.substring(0, index);
-        this.tail = this.tail.substring(index);
-    }
-
-    this.pos += match.length;
-
-    return match;
-  };
-
-  /**
-   * Represents a rendering context by wrapping a view object and
-   * maintaining a reference to the parent context.
-   */
-  function Context (view, parentContext) {
-    this.view = view;
-    this.cache = { '.': this.view };
-    this.parent = parentContext;
-  }
-
-  /**
-   * Creates a new context using the given view with this context
-   * as the parent.
-   */
-  Context.prototype.push = function push (view) {
-    return new Context(view, this);
-  };
-
-  /**
-   * Returns the value of the given name in this context, traversing
-   * up the context hierarchy if the value is absent in this context's view.
-   */
-  Context.prototype.lookup = function lookup (name) {
-    var cache = this.cache;
-
-    var value;
-    if (cache.hasOwnProperty(name)) {
-      value = cache[name];
-    } else {
-      var context = this, intermediateValue, names, index, lookupHit = false;
-
-      while (context) {
-        if (name.indexOf('.') > 0) {
-          intermediateValue = context.view;
-          names = name.split('.');
-          index = 0;
-
-          /**
-           * Using the dot notion path in `name`, we descend through the
-           * nested objects.
-           *
-           * To be certain that the lookup has been successful, we have to
-           * check if the last object in the path actually has the property
-           * we are looking for. We store the result in `lookupHit`.
-           *
-           * This is specially necessary for when the value has been set to
-           * `undefined` and we want to avoid looking up parent contexts.
-           *
-           * In the case where dot notation is used, we consider the lookup
-           * to be successful even if the last "object" in the path is
-           * not actually an object but a primitive (e.g., a string, or an
-           * integer), because it is sometimes useful to access a property
-           * of an autoboxed primitive, such as the length of a string.
-           **/
-          while (intermediateValue != null && index < names.length) {
-            if (index === names.length - 1)
-              lookupHit = (
-                hasProperty(intermediateValue, names[index])
-                || primitiveHasOwnProperty(intermediateValue, names[index])
-              );
-
-            intermediateValue = intermediateValue[names[index++]];
-          }
-        } else {
-          intermediateValue = context.view[name];
-
-          /**
-           * Only checking against `hasProperty`, which always returns `false` if
-           * `context.view` is not an object. Deliberately omitting the check
-           * against `primitiveHasOwnProperty` if dot notation is not used.
-           *
-           * Consider this example:
-           * ```
-           * Mustache.render("The length of a football field is {{#length}}{{length}}{{/length}}.", {length: "100 yards"})
-           * ```
-           *
-           * If we were to check also against `primitiveHasOwnProperty`, as we do
-           * in the dot notation case, then render call would return:
-           *
-           * "The length of a football field is 9."
-           *
-           * rather than the expected:
-           *
-           * "The length of a football field is 100 yards."
-           **/
-          lookupHit = hasProperty(context.view, name);
-        }
-
-        if (lookupHit) {
-          value = intermediateValue;
-          break;
-        }
-
-        context = context.parent;
-      }
-
-      cache[name] = value;
-    }
-
-    if (isFunction(value))
-      value = value.call(this.view);
-
-    return value;
-  };
-
-  /**
-   * A Writer knows how to take a stream of tokens and render them to a
-   * string, given a context. It also maintains a cache of templates to
-   * avoid the need to parse the same template twice.
-   */
-  function Writer () {
-    this.templateCache = {
-      _cache: {},
-      set: function set (key, value) {
-        this._cache[key] = value;
-      },
-      get: function get (key) {
-        return this._cache[key];
-      },
-      clear: function clear () {
-        this._cache = {};
-      }
-    };
-  }
-
-  /**
-   * Clears all cached templates in this writer.
-   */
-  Writer.prototype.clearCache = function clearCache () {
-    if (typeof this.templateCache !== 'undefined') {
-      this.templateCache.clear();
-    }
-  };
-
-  /**
-   * Parses and caches the given `template` according to the given `tags` or
-   * `mustache.tags` if `tags` is omitted,  and returns the array of tokens
-   * that is generated from the parse.
-   */
-  Writer.prototype.parse = function parse (template, tags) {
-    var cache = this.templateCache;
-    var cacheKey = template + ':' + (tags || mustache.tags).join(':');
-    var isCacheEnabled = typeof cache !== 'undefined';
-    var tokens = isCacheEnabled ? cache.get(cacheKey) : undefined;
-
-    if (tokens == undefined) {
-      tokens = parseTemplate(template, tags);
-      isCacheEnabled && cache.set(cacheKey, tokens);
-    }
-    return tokens;
-  };
-
-  /**
-   * High-level method that is used to render the given `template` with
-   * the given `view`.
-   *
-   * The optional `partials` argument may be an object that contains the
-   * names and templates of partials that are used in the template. It may
-   * also be a function that is used to load partial templates on the fly
-   * that takes a single argument: the name of the partial.
-   *
-   * If the optional `config` argument is given here, then it should be an
-   * object with a `tags` attribute or an `escape` attribute or both.
-   * If an array is passed, then it will be interpreted the same way as
-   * a `tags` attribute on a `config` object.
-   *
-   * The `tags` attribute of a `config` object must be an array with two
-   * string values: the opening and closing tags used in the template (e.g.
-   * [ "<%", "%>" ]). The default is to mustache.tags.
-   *
-   * The `escape` attribute of a `config` object must be a function which
-   * accepts a string as input and outputs a safely escaped string.
-   * If an `escape` function is not provided, then an HTML-safe string
-   * escaping function is used as the default.
-   */
-  Writer.prototype.render = function render (template, view, partials, config) {
-    var tags = this.getConfigTags(config);
-    var tokens = this.parse(template, tags);
-    var context = (view instanceof Context) ? view : new Context(view, undefined);
-    return this.renderTokens(tokens, context, partials, template, config);
-  };
-
-  /**
-   * Low-level method that renders the given array of `tokens` using
-   * the given `context` and `partials`.
-   *
-   * Note: The `originalTemplate` is only ever used to extract the portion
-   * of the original template that was contained in a higher-order section.
-   * If the template doesn't use higher-order sections, this argument may
-   * be omitted.
-   */
-  Writer.prototype.renderTokens = function renderTokens (tokens, context, partials, originalTemplate, config) {
-    var buffer = '';
-
-    var token, symbol, value;
-    for (var i = 0, numTokens = tokens.length; i < numTokens; ++i) {
-      value = undefined;
-      token = tokens[i];
-      symbol = token[0];
-
-      if (symbol === '#') value = this.renderSection(token, context, partials, originalTemplate, config);
-      else if (symbol === '^') value = this.renderInverted(token, context, partials, originalTemplate, config);
-      else if (symbol === '>') value = this.renderPartial(token, context, partials, config);
-      else if (symbol === '&') value = this.unescapedValue(token, context);
-      else if (symbol === 'name') value = this.escapedValue(token, context, config);
-      else if (symbol === 'text') value = this.rawValue(token);
-
-      if (value !== undefined)
-        buffer += value;
-    }
-
-    return buffer;
-  };
-
-  Writer.prototype.renderSection = function renderSection (token, context, partials, originalTemplate, config) {
-    var self = this;
-    var buffer = '';
-    var value = context.lookup(token[1]);
-
-    // This function is used to render an arbitrary template
-    // in the current context by higher-order sections.
-    function subRender (template) {
-      return self.render(template, context, partials, config);
-    }
-
-    if (!value) return;
-
-    if (isArray(value)) {
-      for (var j = 0, valueLength = value.length; j < valueLength; ++j) {
-        buffer += this.renderTokens(token[4], context.push(value[j]), partials, originalTemplate, config);
-      }
-    } else if (typeof value === 'object' || typeof value === 'string' || typeof value === 'number') {
-      buffer += this.renderTokens(token[4], context.push(value), partials, originalTemplate, config);
-    } else if (isFunction(value)) {
-      if (typeof originalTemplate !== 'string')
-        throw new Error('Cannot use higher-order sections without the original template');
-
-      // Extract the portion of the original template that the section contains.
-      value = value.call(context.view, originalTemplate.slice(token[3], token[5]), subRender);
-
-      if (value != null)
-        buffer += value;
-    } else {
-      buffer += this.renderTokens(token[4], context, partials, originalTemplate, config);
-    }
-    return buffer;
-  };
-
-  Writer.prototype.renderInverted = function renderInverted (token, context, partials, originalTemplate, config) {
-    var value = context.lookup(token[1]);
-
-    // Use JavaScript's definition of falsy. Include empty arrays.
-    // See https://github.com/janl/mustache.js/issues/186
-    if (!value || (isArray(value) && value.length === 0))
-      return this.renderTokens(token[4], context, partials, originalTemplate, config);
-  };
-
-  Writer.prototype.indentPartial = function indentPartial (partial, indentation, lineHasNonSpace) {
-    var filteredIndentation = indentation.replace(/[^ \t]/g, '');
-    var partialByNl = partial.split('\n');
-    for (var i = 0; i < partialByNl.length; i++) {
-      if (partialByNl[i].length && (i > 0 || !lineHasNonSpace)) {
-        partialByNl[i] = filteredIndentation + partialByNl[i];
-      }
-    }
-    return partialByNl.join('\n');
-  };
-
-  Writer.prototype.renderPartial = function renderPartial (token, context, partials, config) {
-    if (!partials) return;
-    var tags = this.getConfigTags(config);
-
-    var value = isFunction(partials) ? partials(token[1]) : partials[token[1]];
-    if (value != null) {
-      var lineHasNonSpace = token[6];
-      var tagIndex = token[5];
-      var indentation = token[4];
-      var indentedValue = value;
-      if (tagIndex == 0 && indentation) {
-        indentedValue = this.indentPartial(value, indentation, lineHasNonSpace);
-      }
-      var tokens = this.parse(indentedValue, tags);
-      return this.renderTokens(tokens, context, partials, indentedValue, config);
-    }
-  };
-
-  Writer.prototype.unescapedValue = function unescapedValue (token, context) {
-    var value = context.lookup(token[1]);
-    if (value != null)
-      return value;
-  };
-
-  Writer.prototype.escapedValue = function escapedValue (token, context, config) {
-    var escape = this.getConfigEscape(config) || mustache.escape;
-    var value = context.lookup(token[1]);
-    if (value != null)
-      return (typeof value === 'number' && escape === mustache.escape) ? String(value) : escape(value);
-  };
-
-  Writer.prototype.rawValue = function rawValue (token) {
-    return token[1];
-  };
-
-  Writer.prototype.getConfigTags = function getConfigTags (config) {
-    if (isArray(config)) {
-      return config;
-    }
-    else if (config && typeof config === 'object') {
-      return config.tags;
-    }
-    else {
-      return undefined;
-    }
-  };
-
-  Writer.prototype.getConfigEscape = function getConfigEscape (config) {
-    if (config && typeof config === 'object' && !isArray(config)) {
-      return config.escape;
-    }
-    else {
-      return undefined;
-    }
-  };
-
-  var mustache = {
-    name: 'mustache.js',
-    version: '4.2.0',
-    tags: [ '{{', '}}' ],
-    clearCache: undefined,
-    escape: undefined,
-    parse: undefined,
-    render: undefined,
-    Scanner: undefined,
-    Context: undefined,
-    Writer: undefined,
-    /**
-     * Allows a user to override the default caching strategy, by providing an
-     * object with set, get and clear methods. This can also be used to disable
-     * the cache by setting it to the literal `undefined`.
-     */
-    set templateCache (cache) {
-      defaultWriter.templateCache = cache;
-    },
-    /**
-     * Gets the default or overridden caching object from the default writer.
-     */
-    get templateCache () {
-      return defaultWriter.templateCache;
-    }
-  };
-
-  // All high-level mustache.* functions use this writer.
-  var defaultWriter = new Writer();
-
-  /**
-   * Clears all cached templates in the default writer.
-   */
-  mustache.clearCache = function clearCache () {
-    return defaultWriter.clearCache();
-  };
-
-  /**
-   * Parses and caches the given template in the default writer and returns the
-   * array of tokens it contains. Doing this ahead of time avoids the need to
-   * parse templates on the fly as they are rendered.
-   */
-  mustache.parse = function parse (template, tags) {
-    return defaultWriter.parse(template, tags);
-  };
-
-  /**
-   * Renders the `template` with the given `view`, `partials`, and `config`
-   * using the default writer.
-   */
-  mustache.render = function render (template, view, partials, config) {
-    if (typeof template !== 'string') {
-      throw new TypeError('Invalid template! Template should be a "string" ' +
-                          'but "' + typeStr(template) + '" was given as the first ' +
-                          'argument for mustache#render(template, view, partials)');
-    }
-
-    return defaultWriter.render(template, view, partials, config);
-  };
-
-  // Export the escaping function so that the user may override it.
-  // See https://github.com/janl/mustache.js/issues/244
-  mustache.escape = escapeHtml;
-
-  // Export these mainly for testing, but also for advanced usage.
-  mustache.Scanner = Scanner;
-  mustache.Context = Context;
-  mustache.Writer = Writer;
-
-  return mustache;
-
-})));
-
-
-/***/ }),
-
 /***/ 379:
 /***/ ((module) => {
 
-"use strict";
 
 
 var stylesInDOM = [];
@@ -1037,7 +256,6 @@ module.exports = function (list, options) {
 /***/ 569:
 /***/ ((module) => {
 
-"use strict";
 
 
 var memo = {};
@@ -1083,7 +301,6 @@ module.exports = insertBySelector;
 /***/ 216:
 /***/ ((module) => {
 
-"use strict";
 
 
 /* istanbul ignore next  */
@@ -1101,7 +318,6 @@ module.exports = insertStyleElement;
 /***/ 565:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-"use strict";
 
 
 /* istanbul ignore next  */
@@ -1120,7 +336,6 @@ module.exports = setAttributesWithoutAttributes;
 /***/ 795:
 /***/ ((module) => {
 
-"use strict";
 
 
 /* istanbul ignore next  */
@@ -1197,7 +412,6 @@ module.exports = domAPI;
 /***/ 589:
 /***/ ((module) => {
 
-"use strict";
 
 
 /* istanbul ignore next  */
@@ -1237,7 +451,7 @@ module.exports = styleTagTransform;
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -1275,109 +489,192 @@ module.exports = styleTagTransform;
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
-"use strict";
 
 ;// CONCATENATED MODULE: ./src/philo-sophia.js
 /*eslint-disable quote-props, max-len*/
 
 /* harmony default export */ const philo_sophia = ({
+  'a priori': 'deductive; relating to or derived by reasoning from self-evident propositions; presupposed by experience; being without examination or analysis ',
+  'a posteriori': 'inductive; relating to or derived by reasoning from observed facts ',
   'abduction': 'A syllogism or form of argument in which the major premise is evident, but the minor is only probable.',
-  'abstract objects': 'every entity is either concrete or abstract',
-  'ad hoc': 'For the specific purpose, case, or situation at hand and for no other.',
+  'abstract objects': 'every entity is either concrete or abstract; abstract is ...',
+  'ad hoc':'For the specific purpose, case, or situation at hand and for no other.',
   'analytic proposition': 'true or not true solely by virtue of their meaning',
-  'analytic-synthetic distinction': ' a semantic distinction, used primarily in philosophy to distinguish between propositions that are of two types: analytic propositions and synthetic propositions',
-  'anarcho-syndicalism': 'control production, you conrol money, then you control society; political philosophy and anarchist school of thought that views revolutionary industrial unionism or syndicalism as a method for workers in capitalist society to gain control of an economy and thus control influence in broader society',
-  'anecdotal': 'You used a personal experience or an isolated example instead of a sound argument or compelling evidence.',
-  'antirealism': 'the truth of a statement rests on its demonstrability through internal logic mechanisms, such as the context principle or intuitionistic logic, in direct opposition to the realist notion that the truth of a statement rests on its correspondence to an external, independent reality',
-  'axiom': 'A self-evident or universally recognized truth; a maxim.; An established rule, principle, or law.',
-  'black-or-white fallacy': 'You presented two alternative states as the only possibilities, when in fact more possibilities exist.',
-  'burden of proog': 'You said that the burden of proof lies not with the person making the claim, but with someone else to disprove.',
-  'cartesianism': 'species of rationalism, because Cartesians hold that knowledge—indeed, certain knowledge—can be derived through reason from innate ideas.',
-  'Causal Determinism': 'historical determinism; the idea that every event is necessitated by antecedent events and conditions together with the laws of nature',
+  'analytic-synthetic distinction': 'a semantic distinction, used primarily in philosophy to distinguish between propositions that are of two types: analytic propositions and synthetic propositions',
+  'anarcho-syndicalism':'control production, you conrol money, then you control society; political philosophy and anarchist school of thought that views revolutionary industrial unionism or syndicalism as a method for workers in capitalist society to gain control of an economy and thus control influence in broader society',
+  'anecdotal':'You used a personal experience or an isolated example instead of a sound argument or compelling evidence.',
+  'antirealism':'the truth of a statement rests on its demonstrability through internal logic mechanisms, such as the context principle or intuitionistic logic, in direct opposition to the realist notion that the truth of a statement rests on its correspondence to an external, independent reality',
+  'astrophysics': 'application of physics to the stufy of celestial bodies', 
+  'ATP': 'adenosine triphosphate; type of molectular machine; an organic compound and hydrotrope that provides energy to drive many processes in living cells, such as muscle contraction, nerve impulse propagation, condensate dissolution, and chemical synthesis',
+  'ATP synthase': ' is a protein that catalyzes the formation of the energy storage molecule adenosine triphosphate (ATP) using adenosine diphosphate (ADP) and inorganic phosphate (Pi). It is classified under ligases as it changes ADP by the formation of P-O bond (phosphodiester bond).',
+  'axiom':'A self-evident or universally recognized truth; a maxim.; An establis hed rule, principle, or law.',
+  'bayseian': '',
+  'Bayes theorem': 'In probability theory and statistics, Bayes\' theorem, named after Thomas Bayes, describes the probability of an event, based on prior knowledge of conditions that might be related to the event',
+  'black-or-white fallacy':'You presented two alternative states as the only possibilities, when in fact more possibilities exist.',
+  'brute contingency': '',
+  'burden of proof':'You said that the burden of proof lies not with the person making the claim, but with someone else to disprove.',
+  'cartesianism':'species of rationalism, because Cartesians hold that knowledge—indeed, certain knowledge—can be derived through reason from innate ideas.',
+  'cartesian certainty': '',
+  'Causal Determinism':'historical determinism; the idea that every event is necessitated by antecedent events and conditions together with the laws of nature',
   'cause': 'The producer of an effect, result, or consequence.',
-  'coherence theory of epistemic justification': 'According to the coherence theory of justification, also known as coherentism, a belief or set of beliefs is justified, or justifiably held, just in case the belief coheres with a set of beliefs, the set forms a coherent system or some variation on these themes.',
-  'coherence theory of truth': 'A coherence theory of truth states that the truth of any (true) proposition consists in its coherence with some specified set of propositions.',
-  'coherintist': ' the coherence theory of truth; and the coherence theory of justification.',
-  'composition/division fallacy': 'You assumed that one part of something has to be applied to all, or other, parts of it; or that the whole must apply to its parts.', 
+  'code': 'A system of signals used to represent letters or numbers in transmitting messages.',
+  'coherence theory of epistemic justification':'According to the coherence theory of justification, also known as coherentism, a belief or set of beliefs is justified, or justifiably held, just in case the belief coheres with a set of beliefs, the set forms a coherent system or some variation on these themes.',
+  'coherence theory of truth':'A coherence theory of truth states that the truth of any (true) proposition consists in its coherence with some specified set of propositions.',
+  'coherintist':' the coherence theory of truth; and the coherence theory of justification.',
+  'composition/division fallacy':'You assumed that one part of something has to be applied to all, or other, parts of it; or that the whole must apply to its parts.',
   'compatibilist': 'determinism is compatibile with free-will',
   'concequentialist': 'normative properties depend only on consequences',
-  'constructivism': 'individuals or learners do not acquire knowledge and understanding by passively perceiving it within a direct process of knowledge transmission, rather they construct new understandings and knowledge through experience and social discourse, integrating new information with what they already know',
-  'contingency': 'An event that may occur but that is not likely or intended; a possibility',
-  'contradiction': 'a proposition, statement, or phrase that asserts or implies both the truth and falsity of something',
+  'constructivism':'individuals or learners do not acquire knowledge and understanding by passively perceiving it within a direct process of knowledge transmission, rather they construct new understandings and knowledge through experience and social discourse, integrating new information with what they already know',
+  'contingency':'An event that may occur but that is not likely or intended; a possibility',
+  'contradiction':'a proposition, statement, or phrase that asserts or implies both the truth and falsity of something',
+  'cosmology': 'stufy of the origin and development of the universe',
+  'dark matter': 'none barionic matter',
   'deductive': 'deriving conclusions by reasoning',
   'define': 'To state the precise meaning of ',
   'deism': 'god created universe and set it up, but does not intervene',
+  'dependent variable': 'expermental result',
+  'diachrony': 'as in historical linguistics, considers the development and evolution of a language through history.',
+  'heuristic': 'Of or relating to a usually speculative formulation serving as a guide in the investigation or solution of a problem.',
+  'hypothesis': 'tentative explanation of observations',
+  'independent variable': 'parameter being altered',
   'dualism': 'seperation of mind/matter; mind/body can function seperately',
   'entity': 'every entity falls into either abstract or concrete',
+  'entropy':'s a scientific concept as well as a measurable physical property that is most commonly associated with a state of disorder, randomness, or uncertainty.',
   'epistemology': 'nature of knowing',
   'epistimology vs ontology': 'e: ways we know things, o: the way things are',
   'eternal': 'without begining or end ',
-  'etymology': 'Study of the history of linguistic forms, that is the history of how words are written and pronounced, and how their spelling and pronunciation changed',
-  'euthyphro dilemma': 'asks whether a thing is good because God says it is good, or does God say it’s good because it is good',
-  'evidentialism': 'justified to believe if and only if you have evidence that supports your belief',
+  'ethics': 'moral philosophy; is a branch of philosophy that "involves systematizing, defending, and recommending concepts of right and wrong behavior',
+  'etymology':'Study of the history of linguistic forms, that is the history of how words are written and pronounced, and how their spelling and pronunciation changed',
+  'euthyphro dilemma':'asks whether a thing is good because God says it is good, or does God say it’s good because it is good',
+  'evidentialism':'justified to believe if and only if you have evidence that supports your belief',
   'explain': 'to define',
   'explanation': 'explaining: to make known',
   'explication': 'The act of unfolding or opening; explaining',
   'fact': 'what the world is made of? Knowledge or information based on real occurrences.',
   'fallabalism': 'knowledge does not require certainty',
-  'fatalism': 'The doctrine that all events are predetermined by fate and are therefore unalterable.',
+  'fatalism':'The doctrine that all events are predetermined by fate and are therefore unalterable.',
   'fundemental': 'of or relating to the foundation or base',
-  'genetic fallacy': 'You judged something as either good or bad on the basis of where it comes from, or from whom it came.',
-  'gettier cases': 'examples that knowledge is not justified true belief; shows scenario where individual is right about proposition but process by which they are right didn\'t guarantee they had knowledge',
-  'gnosis': 'Intuitive apprehension of spiritual truths, an esoteric form of knowledge sought by the Gnostics.',
+  'genetic fallacy':'You judged something as either good or bad on the basis of where it comes from, or from whom it came.',
+  'gettier cases':'examples that knowledge is not justified true belief; shows scenario where individual is right about proposition but process by which they are right didn\'t guarantee they had knowledge',
+  'gnosis':'Intuitive apprehension of spiritual truths, an esoteric form of knowledge sought by the Gnostics.',
+  'god of spinoza': 'created everything, hit start, and doesn\'t interupt; points at creator / god distiction; biological father vs father',
+  'heterodox': 'Not in agreement with accepted beliefs, especially in church doctrine or dogma.',
+  'igtheism': 'ignosticism; The philosophical position that beliefs regarding the existence or non-existence of God (capitalized) all assume too much, especially because there is not just one universal definition of the word "God" or because the concept of "God" is both unfalsifiable and unverifiable; also called "theological noncognitivism".',
   'incompatibilist': 'determinism is incompatible with free-will',
-  'indeterminism': 'unpredictability; some events (human actions / decisions) have no cause',
+  'indeterminism':'unpredictability; some events (human actions / decisions) have no cause',
+  'inductive': 'of, relating to, or employing mathematical or logical induction',
+  'induction': 'base on observation',
+  'deduction': '',
+  'proposition': 'is either true or false; a claim that is either true/false; can never be both; (ie. law of non-contradiction); can never be in the midle (ie. law of excluded-middle)',
+  'term (algebra)': '(ie. variable part and number part): 2a, 4b 5g 2x^2, etc.. coefficient (ie number part) variable part() a b g x^2) then ',
   'inductive logic': 'a logic of evidential support',
-  'inference': 'The act or process of deriving logical conclusions from premises known or assumed to be true.',
+  'Problem of Induction': '',
+  'inference':'The act or process of deriving logical conclusions from premises known or assumed to be true.',
   'justification': 'justify: to prove or show to be just, right, or reasonable',
-  'Laplaces Demon': 'Causal Determinism by Pierre-Simon Laplace; free-will is an illusion because of causal determinism; According to determinism, if someone (the demon) knows the precise location and momentum of every atom in the universe, their past and future values for any given time are entailed; they can be calculated from the laws of classical mechanics.',
+  'Laplaces Demon':'Causal Determinism by Pierre-Simon Laplace; free-will is an illusion because of causal determinism; According to determinism, if someone (the demon) knows the precise location and momentum of every atom in the universe, their past and future values for any given time are entailed; they can be calculated from the laws of classical mechanics.',
+  'law': 'summary of observations',
   'libertarian free-will': 'ability to have done otherwise',
-  'loaded question': 'You asked a question that had a presumption built into it so that it couldn\'t be answered without appearing guilty.',
+  'loaded question':'You asked a question that had a presumption built into it so that it couldn\'t be answered without appearing guilty.',
+  'molecular machine': 'is a molecular component that produces quasi-mechanical movements (output) in response to specific stimuli (input).[2][3] In cellular biology, macromolecular machines frequently perform tasks essential for life, such as DNA replication and ATP synthesis.',
   'nature': 'the material world and its phenomena',
   'neoplatonism': 'platonism + aristotelianism + oriental mysticism ',
-  'nominalism': 'abstract concepts, general terms, or universals have no independent existence but exist only as names',
+  'nominalism':'abstract concepts, general terms, or universals have no independent existence but exist only as names',
+  'nothing': 'No thing; not anything. No part; no portion.One of no consequence, significance, or interest.',
+  'observant': 'Having or showing keen perceptiveness; perceptive.',
+  'observation': 'The act of observing.',
+  'observing': 'Giving particular attention; habitually attentive to what passes; observant{1}',
   'omnipresent': 'Present everywhere simultaneously',
   'omniscient': 'Having total knowledge; knowing everything.',
   'ontology': 'The branch of metaphysics that deals with the nature of being.',
+  'ontological argument': 'An ontological argument is a philosophical argument, made from an ontological basis, that is advanced in support of the existence of God. Such arguments tend to refer to the state of being or existing.',
+  'orthopraxy': 'study of religion; correct conduct both ethical and liturgical',
+  'ought': '',
   'panentheism': 'all things are contained within god',
   'pantheism': 'worship all gods; see god(s) in all things',
   'paraconsistent': 'Tolerant towards inconsistencies.',
-  'pascals wager': 'It posits that humans bet with their lives that God either exists or does not.',
-  'pauli exclusion principle': 'quantum mechanical principle which states that two or more identical fermions cannot occupy the same quantum state within a quantum system simultaneously',
+  'pascals wager':'It posits that humans bet with their lives that God either exists or does not.',
+  'pauli exclusion principle':'quantum mechanical principle which states that two or more identical fermions cannot occupy the same quantum state within a quantum system simultaneously',
   'platonsim': 'abstract objects exist',
-  'possible': 'Capable of happening, existing, or being true without contradicting proven facts, laws, or circumstances.',
-  'postdiction': 'An assertion or deduction about something in the past; the act of making such an assertion or deduction.',
-  'post hoc': 'relating to or being the fallacy of arguing from temporal sequence to a causal relation',
-  'post hoc, ergo propter hoc': 'after this, therefore because of this : because an event occurred first, it must have caused this later event —used to describe a fallacious argument',
-  'pragmatist': 'a person who takes a practical approach to problems and is concerned primarily with the success or failure of his or her actions',
+  'possible':'Capable of happening, existing, or being true without contradicting proven facts, laws, or circumstances.',
+  'propter hoc (beecause of this)': '',
+  'postdiction':'An assertion or deduction about something in the past; the act of making such an assertion or deduction.',
+  'post hoc':'relating to or being the fallacy of arguing from temporal sequence to a causal relation',
+  'post hoc, ergo propter hoc':'after this, therefore because of this : because an event occurred first, it must have caused this later event —used to describe a fallacious argument',
+  'pragmatist':'a person who takes a practical approach to problems and is concerned primarily with the success or failure of his or her actions',
   'predicting': 'to declare or indicate in advance',
-  'problem of underdetermination': 'evidence available to us at a given time may be insufficient to determine what beliefs we should hold in response to it. Underdetermination says that all evidence necessarily underdetermines any scientific theory.',
+  'problem of underdetermination':'evidence available to us at a given time may be insufficient to determine what beliefs we should hold in response to it. Underdetermination says that all evidence necessarily underdetermines any scientific theory.',
   'PSR (principle sufficient reasoning)':'everything must have a reason, cause, or ground.',
-  'ravens paradox': 'question of what constitutes evidence for a statement. shows contradiction between inductive logic and intuition. Observing objects that are neither black nor ravens may formally increase the likelihood that all ravens are black even though, intuitively, these observations are unrelated.',
+  'ravens paradox':'question of what constitutes evidence for a statement. shows contradiction between inductive logic and intuition. Observing objects that are neither black nor ravens may formally increase the likelihood that all ravens are black even though, intuitively, these observations are unrelated.',
   'reason': 'a statement offered in explanation or justification',
   'reflexive': 'directed or turned back on itself',
-  'scientism': 'The collection of attitudes and practices considered typical of scientists',
+  'scientism':'The collection of attitudes and practices considered typical of scientists',
+  'sophia': 'wisdom',
   'sophistry': 'Plausible but fallacious argumentation.',
-  'strawman': 'You misrepresented someone\'s argument to make it easier to attack.',
-  'structuralism': 'a general theory of culture and methodology that implies that elements of human culture must be understood by way of their relationship to a broader system',
-  'syllogism': 'A form of deductive reasoning consisting of a major premise, a minor premise, and a conclusion; for example, All humans are mortal, the major premise, I am a human, the minor premise, therefore, I am mortal, the conclusion.',
-  'synthetic proposition': 'truth, if any, derives from how their meaning relates to the world',
-  'teleology': 'The philosophical interpretation of natural phenomena as exhibiting purpose or design',
-  'tertiary structure': 'the three-dimensional structure of a protein—is the next level of complexity in protein folding. Whereas individual amino acids in the primary sequence can interact with one another to form secondary structures such as helices and sheets, and individual amino acids from distant parts of the primary sequence can intermingle via charge-charge, hydrophobic, disulfide, or other interactions, the formation of these bonds and interactions serve to change the shape of the overall protein. The folding that we end up with for a given polypeptide is the tertiary structure.',
-  'fallacy fallacy': 'You presumed that because a claim has been poorly argued, or a fallacy has been made, that the claim itself must be wrong.',
-  'types of logic': 'Aristotellian; Classical; Propositional; First-Order; Extended logics (extends classical): metaphysics, ethics, epistemology',
-  'ubiquitius': 'Being or seeming to be everywhere at the same time; omnipresent.',
-  'ultimate': 'last in series/process/progression (syn: last); eventual; fundemental; elemental;',
+  'strawman':'You misrepresented someone\'s argument to make it easier to attack.',
+  'structuralism':'a general theory of culture and methodology that implies that elements of human culture must be understood by way of their relationship to a broader system',
+  'syllogism':'A form of deductive reasoning consisting of a major premise, a minor premise, and a conclusion; for example, All humans are mortal, the major premise, I am a human, the minor premise, therefore, I am mortal, the conclusion.',
+  'synchrony': 'A synchronic approach considers a language at a moment in time without taking its history into account. aims at describing a language at a specific point of time',
+  'synthetic proposition':'truth, if any, derives from how their meaning relates to the world',
+  'teleological argument': 'argument for the existence of God or, more generally, that complex functionality in the natural world which looks designed is evidence of an intelligent creator.',
+  'teleology':'The philosophical interpretation of natural phenomena as exhibiting purpose or design',
+  'tertiary structure':'the three-dimensional structure of a protein—is the next level of complexity in protein folding. Whereas individual amino acids in the primary sequence can interact with one another to form secondary structures such as helices and sheets, and individual amino acids from distant parts of the primary sequence can intermingle via charge-charge, hydrophobic, disulfide, or other interactions, the formation of these bonds and interactions serve to change the shape of the overall protein. The folding that we end up with for a given polypeptide is the tertiary structure.',
+  'fallacy fallacy':'You presumed that because a claim has been poorly argued, or a fallacy has been made, that the claim itself must be wrong.',
+  'theory': 'make falsifiable predictions; explain laws',
+  'types of logic':'Aristotellian; Classical; Propositional; First-Order; Extended logics (extends classical): metaphysics, ethics, epistemology',
+  'ubiquitius':'Being or seeming to be everywhere at the same time; omnipresent.',
+  '4 dimentional lorentzien manifold': '3 spacial & 1 time',
+  'n dimentional riemannian manifolds': '  ', 
+  'ultimate':'last in series/process/progression (syn: last); eventual; fundemental; elemental;',
+  'underdetermination': '',
   'universalism': 'christians who believe all people will be eventually saved',
-  'universals': 'Including, relating to, or affecting all members of the class or group',
-  'zoroastrianism': 'oldest religion, it is Iranian, has dualistic cosmology of good and evil, monotheistic ontology, prophet: Zoroaster'
+  'universals':'Including, relating to, or affecting all members of the class or group',
+  'virtue': 'Moral excellence and righteousness; goodness; An example or kind of moral excellence.',
+  'zionism': 'nationalist movement that espouses the establishment of, and support for a homeland for the Jewish people centered in the area roughly corresponding to the Land of Israel, the region of Palestine, Canaan, or the Holy Land, on the basis of a long Jewish connection and attachment to that land.',
+  'zoroastrianism':'oldest religion, it is Iranian, has dualistic cosmology of good and evil, monotheistic ontology, prophet: Zoroaster',
 });
 
-// EXTERNAL MODULE: ./node_modules/mustache/mustache.js
-var mustache = __webpack_require__(466);
-var mustache_default = /*#__PURE__*/__webpack_require__.n(mustache);
+;// CONCATENATED MODULE: ./src/simple-ejs.js
+// Simple EJS-like template renderer for browser use
+function render(template, data) {
+  const { results, foundWordDefinition } = data;
+  
+  let html = '';
+  
+  results.forEach(result => {
+    html += `
+      <div class="result"> 
+        <h2>${escapeHtml(result.word)}</h2>
+        <p>${escapeHtml(result.definition)}</p>`;
+    
+    result.foundWords.forEach(foundWord => {
+      const definition = foundWordDefinition.call(foundWord);
+      html += `
+        <div class="found-words">
+          <button class="found-word" id="${escapeHtml(foundWord)}">
+            <b>${escapeHtml(foundWord)}</b>: <span>${escapeHtml(definition)}</span>
+          </button>
+        </div>`;
+    });
+    
+    html += `
+      </div>`;
+  });
+  
+  return html;
+}
+
+function escapeHtml(text) {
+  if (text == null) return '';
+  return String(text)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(379);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
@@ -1434,7 +731,6 @@ var update = injectStylesIntoStyleTag_default()(app/* default */.Z, options);
 
 let results = [];
 let terms;
-let template;
 let resultsElement = document.getElementById("results");
 let searchElement = document.getElementById("search-input");
 searchElement.oninput = inputUpdated;
@@ -1462,9 +758,6 @@ async function LoadTerms() {
     item.foundWords = foundWords;
   });
 
-  //get and store the template for re-use
-  template = await fetch("result.mustache").then((response) => response.text());
-
   //execute with no input results in full list results
   inputUpdated();
 }
@@ -1482,7 +775,7 @@ function loadTerm({ currentTarget }) {
 async function inputUpdated() {
   let searchTerm = searchElement.value;
   results = terms.filter((definition) => definition.word.includes(searchTerm));
-  let renderedTemplate = mustache_default().render(template, {
+  let renderedTemplate = render(null, {
     results,
     foundWordDefinition,
   });

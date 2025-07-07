@@ -1,10 +1,9 @@
 import termsJson from "./philo-sophia.js";
-import Mustache from "../node_modules/mustache/mustache";
+import * as ejs from "./simple-ejs.js";
 import "./app.css";
 
 let results = [];
 let terms;
-let template;
 let resultsElement = document.getElementById("results");
 let searchElement = document.getElementById("search-input");
 searchElement.oninput = inputUpdated;
@@ -32,9 +31,6 @@ async function LoadTerms() {
     item.foundWords = foundWords;
   });
 
-  //get and store the template for re-use
-  template = await fetch("result.mustache").then((response) => response.text());
-
   //execute with no input results in full list results
   inputUpdated();
 }
@@ -52,7 +48,7 @@ function loadTerm({ currentTarget }) {
 async function inputUpdated() {
   let searchTerm = searchElement.value;
   results = terms.filter((definition) => definition.word.includes(searchTerm));
-  let renderedTemplate = Mustache.render(template, {
+  let renderedTemplate = ejs.render(null, {
     results,
     foundWordDefinition,
   });

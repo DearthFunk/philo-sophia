@@ -23,21 +23,16 @@
     "url": "https://github.com/DearthFunk/philo-sophia/issues"
   },
   "homepage": "https://github.com/DearthFunk/philo-sophia#readme",
-  "dependencies": {
-    "mustache": "^4.2.0"
-  },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
   },
   "devDependencies": {
-    "copy-webpack-plugin": "^10.2.4",
     "css-loader": "^6.7.1",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
     "html-webpack-plugin": "^5.5.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.4.0",
-    "mustache-loader": "^1.4.3",
     "prettier": "2.6.2",
     "serve": "^13.0.2",
     "style-loader": "^3.3.1",
