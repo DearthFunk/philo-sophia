@@ -1,5 +1,5 @@
 {
-  "name": "philo-sophia",
+  "name": "philosobabel",
   "version": "1.0.0",
   "description": "Bunch of short definitions used as a quick reference guide for stupid philosophy discussions online. Words and their definitions are stupid.",
   "private": true,
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DearthFunk/philo-sophia.git"
+    "url": "git+https://github.com/DearthFunk/philosobabel.git"
   },
   "keywords": [
     "philosophy"
@@ -20,9 +20,9 @@
   "author": "dearth funk",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/DearthFunk/philo-sophia/issues"
+    "url": "https://github.com/DearthFunk/philosobabel/issues"
   },
-  "homepage": "https://github.com/DearthFunk/philo-sophia#readme",
+  "homepage": "https://github.com/DearthFunk/philosobabel#readme",
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
   },

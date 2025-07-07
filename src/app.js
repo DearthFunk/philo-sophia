@@ -1,4 +1,4 @@
-import termsJson from "./philo-sophia.js";
+import termsJson from "./philosobabel.js";
 import * as ejs from "./simple-ejs.js";
 import "./app.css";
 
