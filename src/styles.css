@@ -1,3 +1,29 @@
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 8px;
+  padding: 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.menu-modal {
+  padding: 0;
+  min-width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -9,19 +35,42 @@ body {
   background-color: lightgoldenrodyellow;
 }
 
+.header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-direction: row;
+}
+
 #search-input {
   font-size: 20px;
-  margin: 20px 0;
+  margin: 0;
   color: darkslategrey;
   padding: 5px;
   border-radius: 5px;
   border: 1px solid;
+  flex: 1;
 }
 
 p {
   font-style: italic;
   font-size: 16px;
 }
+
+h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.integrations-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 8px;
+}
+
 
 .result,
 .found-word {
@@ -53,4 +102,388 @@ p {
 
 .found-word span {
   font-style: italic;
+}
+
+/* Menu Options Styles */
+.menu-options {
+  position: relative;
+}
+
+.menu-toggle {
+  background: darkslategrey;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.menu-toggle:hover {
+  background: #2f4f4f;
+}
+
+.menu-toggle:focus {
+  outline: 2px solid dodgerblue;
+  outline-offset: 2px;
+}
+
+.menu-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  min-width: 200px;
+  margin-top: 5px;
+}
+
+.menu-item {
+  padding: 10px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-item label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.menu-item input[type="checkbox"] {
+  margin: 0;
+}
+
+.menu-section {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.menu-section:last-child {
+  border-bottom: none;
+}
+
+.menu-section-title {
+  font-weight: 600;
+  font-size: 13px;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 12px 15px 8px 15px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  margin-bottom: 0;
+}
+
+.integration-menu-icon {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+/* Tooltip Modal Styles */
+.tooltip-trigger {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.tooltip-trigger:hover {
+  background-color: rgba(30, 144, 255, 0.1);
+}
+
+.tooltip-modal {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  max-width: 300px;
+  min-width: 200px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.tooltip-content {
+  padding: 12px 16px;
+}
+
+.tooltip-word {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 6px;
+}
+
+.tooltip-definition {
+  font-size: 14px;
+  font-style: italic;
+  color: #666;
+  line-height: 1.4;
+}
+
+.tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid white;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tooltip-arrow::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 9px solid #ccc;
+  bottom: 1px;
+  left: -9px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Focus styles for tooltip trigger */
+.tooltip-trigger:focus {
+  outline: 2px solid dodgerblue;
+  outline-offset: 2px;
+}
+
+/* Ensure tooltip appears above other elements */
+.tooltip-modal {
+  pointer-events: none;
+}
+
+/* Integration System Styles */
+.integration-trigger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.integration-trigger:hover {
+  background-color: rgba(30, 144, 255, 0.1);
+}
+
+.integration-trigger:focus {
+  outline: 2px solid dodgerblue;
+  outline-offset: 2px;
+}
+
+.integration-tooltip {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  max-width: 350px;
+  min-width: 250px;
+  animation: fadeIn 0.2s ease-out;
+  pointer-events: none;
+}
+
+.integration-tooltip-content {
+  padding: 16px;
+}
+
+.integration-tooltip-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+.integration-tooltip-word {
+  font-weight: bold;
+  font-size: 18px;
+  color: #333;
+}
+
+.integration-tooltip-phonetic {
+  font-size: 14px;
+  color: #666;
+  font-style: italic;
+}
+
+.integration-tooltip-definitions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.integration-tooltip-definition {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.integration-tooltip-pos {
+  font-size: 12px;
+  font-weight: 600;
+  color: #007acc;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.integration-tooltip-def-text {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.4;
+}
+
+.integration-tooltip-example {
+  font-size: 13px;
+  color: #666;
+  margin-top: 4px;
+  padding-left: 8px;
+  border-left: 2px solid #eee;
+}
+
+.integration-tooltip-loading {
+  padding: 16px;
+  text-align: center;
+  color: #666;
+  font-style: italic;
+}
+
+.integration-tooltip-error {
+  padding: 16px;
+  color: #d32f2f;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.integration-tooltip-data {
+  font-family: monospace;
+  font-size: 12px;
+  background: #f5f5f5;
+  padding: 8px;
+  border-radius: 4px;
+  white-space: pre-wrap;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.integration-tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid white;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.integration-tooltip-arrow::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 9px solid #ccc;
+  bottom: 1px;
+  left: -9px;
+}
+
+/* Wikipedia-specific styles */
+.integration-tooltip-wiki-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.integration-tooltip-extract {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.integration-tooltip-wiki-link {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #eee;
+}
+
+.integration-tooltip-wiki-link a {
+  color: #007acc;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.integration-tooltip-wiki-link a:hover {
+  text-decoration: underline;
+}
+
+/* WordsAPI and Merriam-Webster specific styles */
+.integration-tooltip-meaning {
+  margin-bottom: 16px;
+}
+
+.integration-tooltip-meaning:last-child {
+  margin-bottom: 0;
+}
+
+.integration-tooltip-source {
+  font-size: 12px;
+  color: #888;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #eee;
+  font-style: italic;
+}
+
+.integration-tooltip-etymology {
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid #eee;
+  font-size: 13px;
+  color: #555;
+}
+
+.integration-tooltip-etymology strong {
+  color: #333;
 }

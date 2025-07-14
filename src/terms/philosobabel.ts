@@ -1,11 +1,6 @@
-/*eslint-disable quote-props, max-len*/
+import { Terms } from "../types";
 
-interface TermsData {
-  [key: string]: string;
-}
-
-const termsData: TermsData = {
-  '4 dimentional lorentzien manifold': 'A four-dimensional Lorentzian manifold is a smooth, four-dimensional space (a manifold) where the metric (which defines distances and angles) is Lorentzian, meaning it has a signature of (3,1) or (1,3). This means it has three spatial dimensions and one time dimension, and the metric allows for both timelike, spacelike, and null vectors. It\'s a fundamental concept in general relativity, where spacetime is modeled as a Lorentzian manifold.',
+const terms: Terms = {
   'a posteriori': 'relating to or denoting reasoning or knowledge which proceeds from observations or experiences to the deduction of probable causes.',
   'a priori': 'relating to or denoting reasoning or knowledge which proceeds from theoretical deduction rather than from observation or experience.',
   'abduction': 'also known as abductive reasoning or inference to the best explanation, is a form of logical inference that starts with an observation and seeks the most likely explanation for that observation.',
@@ -16,12 +11,7 @@ const termsData: TermsData = {
   'anarcho-syndicalism': 'control production, you conrol money, then you control society; political philosophy and anarchist school of thought that views revolutionary industrial unionism or syndicalism as a method for workers in capitalist society to gain control of an economy and thus control influence in broader society',
   'anecdotal': 'You used a personal experience or an isolated example instead of a sound argument or compelling evidence.',
   'antirealism': 'the truth of a statement rests on its demonstrability through internal logic mechanisms, such as the context principle or intuitionistic logic, in direct opposition to the realist notion that the truth of a statement rests on its correspondence to an external, independent reality.',
-  'astrophysics': 'application of physics to the stufy of celestial bodies', 
-  'ATP synthase': 'is a protein that catalyzes the formation of the energy storage molecule adenosine triphosphate (ATP) using adenosine diphosphate (ADP) and inorganic phosphate (Pi). It is classified under ligases as it changes ADP by the formation of P-O bond (phosphodiester bond).',
-  'ATP': 'adenosine triphosphate; type of molectular machine; an organic compound and hydrotrope that provides energy to drive many processes in living cells, such as muscle contraction, nerve impulse propagation, condensate dissolution, and chemical synthesis',
   'axiom': 'A self-evident or universally recognized truth; a maxim.; An establis hed rule, principle, or law.',
-  'Bayes theorem': 'In probability theory and statistics, Bayes\' theorem, named after Thomas Bayes, describes the probability of an event, based on prior knowledge of conditions that might be related to the event',
-  'bayseian': 'A statistical method that updates the probability of a hypothesis as more evidence becomes available.',
   'black-or-white fallacy': 'You presented two alternative states as the only possibilities, when in fact more possibilities exist.',
   'brute contingency': 'a brute contingent fact is a fact that is true, but could have been false, and has no explanation for why it\'s true.',
   'burden of proof': 'You said that the burden of proof lies not with the person making the claim, but with someone else to disprove.',
@@ -39,16 +29,12 @@ const termsData: TermsData = {
   'constructivism': 'individuals or learners do not acquire knowledge and understanding by passively perceiving it within a direct process of knowledge transmission, rather they construct new understandings and knowledge through experience and social discourse, integrating new information with what they already know',
   'contingency': 'An event that may occur but that is not likely or intended; a possibility',
   'contradiction': 'a proposition, statement, or phrase that asserts or implies both the truth and falsity of something',
-  'cosmology': 'stufy of the origin and development of the universe',
-  'dark matter': 'a hypothetical substance that makes up about 85% of the matter in the universe, but it doesn\'t interact with light or other electromagnetic radiation, making it invisible and undetectable by conventional means.',
   'deductive': 'deriving conclusions by reasoning',
   'define': 'To state the precise meaning of ',
   'deism': 'god created universe and set it up, but does not intervene',
-  'dependent variable': 'expermental result',
   'diachrony': 'as in historical linguistics, considers the development and evolution of a language through history.',
   'dualism': 'seperation of mind/matter; mind/body can function seperately',
   'entity': 'every entity falls into either abstract or concrete',
-  'entropy': 's a scientific concept as well as a measurable physical property that is most commonly associated with a state of disorder, randomness, or uncertainty.',
   'epistemology': 'nature of knowing',
   'epistimology vs ontology': 'e: ways we know things, o: the way things are',
   'eternal': 'without begining or end ',
@@ -73,7 +59,6 @@ const termsData: TermsData = {
   'hypothesis': 'tentative explanation of observations',
   'igtheism': 'ignosticism; The philosophical position that beliefs regarding the existence or non-existence of God (capitalized) all assume too much, especially because there is not just one universal definition of the word "God" or because the concept of "God" is both unfalsifiable and unverifiable; also called "theological noncognitivism".',
   'incompatibilist': 'determinism is incompatible with free-will',
-  'independent variable': 'parameter being altered',
   'indeterminism': 'unpredictability; some events (human actions / decisions) have no cause',
   'induction': 'base on observation',
   'inductive logic': 'a logic of evidential support',
@@ -81,18 +66,13 @@ const termsData: TermsData = {
   'inference': 'The act or process of deriving logical conclusions from premises known or assumed to be true.',
   'justification': 'justify: to prove or show to be just, right, or reasonable',
   'Laplaces Demon': 'Causal Determinism by Pierre-Simon Laplace; free-will is an illusion because of causal determinism; According to determinism, if someone (the demon) knows the precise location and momentum of every atom in the universe, their past and future values for any given time are entailed; they can be calculated from the laws of classical mechanics.',
-  'law': 'summary of observations',
   'libertarian free-will': 'ability to have done otherwise',
   'loaded question': 'You asked a question that had a presumption built into it so that it couldn\'t be answered without appearing guilty.',
-  'molecular machine': 'is a molecular component that produces quasi-mechanical movements (output) in response to specific stimuli (input).[2][3] In cellular biology, macromolecular machines frequently perform tasks essential for life, such as DNA replication and ATP synthesis.',
-  'n dimentional riemannian manifolds': 'A space that locally resembles n-dimensional Euclidean space, equipped with a Riemannian metric, which allows for the measurement of lengths and angles.', 
   'nature': 'the material world and its phenomena',
   'neoplatonism': 'platonism + aristotelianism + oriental mysticism ',
   'nominalism': 'abstract concepts, general terms, or universals have no independent existence but exist only as names',
   'nothing': 'No thing; not anything. No part; no portion.One of no consequence, significance, or interest.',
   'observant': 'Having or showing keen perceptiveness; perceptive.',
-  'observation': 'The act of observing.',
-  'observing': 'Giving particular attention; habitually attentive to what passes; observant{1}',
   'omnipresent': 'Present everywhere simultaneously',
   'omniscient': 'Having total knowledge; knowing everything.',
   'ontological argument': 'An ontological argument is a philosophical argument, made from an ontological basis, that is advanced in support of the existence of God. Such arguments tend to refer to the state of being or existing.',
@@ -103,7 +83,6 @@ const termsData: TermsData = {
   'pantheism': 'worship all gods; see god(s) in all things',
   'paraconsistent': 'Tolerant towards inconsistencies.',
   'pascals wager': 'It posits that humans bet with their lives that God either exists or does not.',
-  'pauli exclusion principle': 'quantum mechanical principle which states that two or more identical fermions cannot occupy the same quantum state within a quantum system simultaneously',
   'philo': 'denoting a liking for a specified thing.',
   'philosophy': '"philo" and "sophia"; is the study of fundamental questions about existence, knowledge, values, reason, mind, and language.',
   'platonsim': 'abstract objects exist',
@@ -121,7 +100,6 @@ const termsData: TermsData = {
   'ravens paradox': 'question of what constitutes evidence for a statement. shows contradiction between inductive logic and intuition. Observing objects that are neither black nor ravens may formally increase the likelihood that all ravens are black even though, intuitively, these observations are unrelated.',
   'reason': 'a statement offered in explanation or justification',
   'reflexive': 'directed or turned back on itself',
-  'scientism': 'The collection of attitudes and practices considered typical of scientists',
   'sophia': 'wisdom',
   'sophistry': 'Plausible but fallacious argumentation.',
   'strawman': 'You misrepresented someone\'s argument to make it easier to attack.',
@@ -132,7 +110,6 @@ const termsData: TermsData = {
   'teleological argument': 'argument for the existence of God or, more generally, that complex functionality in the natural world which looks designed is evidence of an intelligent creator.',
   'teleology': 'The philosophical interpretation of natural phenomena as exhibiting purpose or design',
   'term (algebra)': '(ie. variable part and number part): 2a, 4b 5g 2x^2, etc.. coefficient (ie number part) variable part() a b g x^2) then ',
-  'tertiary structure': 'the three-dimensional structure of a protein—is the next level of complexity in protein folding. Whereas individual amino acids in the primary sequence can interact with one another to form secondary structures such as helices and sheets, and individual amino acids from distant parts of the primary sequence can intermingle via charge-charge, hydrophobic, disulfide, or other interactions, the formation of these bonds and interactions serve to change the shape of the overall protein. The folding that we end up with for a given polypeptide is the tertiary structure.',
   'theory': 'make falsifiable predictions; explain laws',
   'types of logic': 'Aristotellian; Classical; Propositional; First-Order; Extended logics (extends classical): metaphysics, ethics, epistemology',
   'ubiquitius': 'Being or seeming to be everywhere at the same time; omnipresent.',
@@ -145,4 +122,4 @@ const termsData: TermsData = {
   'zoroastrianism': 'oldest religion, it is Iranian, has dualistic cosmology of good and evil, monotheistic ontology, prophet: Zoroaster',
 };
 
-export default termsData;
+export default terms;

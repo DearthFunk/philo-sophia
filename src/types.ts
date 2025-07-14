@@ -4,6 +4,13 @@ export interface Term {
   foundWords: string[];
 }
 
-export interface TermsData {
+export interface Terms {
   [key: string]: string;
+}
+
+export interface Settings {
+  quickErase: boolean;
+  saveSettings: boolean;
+  termsFile: 'philosophy' | 'science';
+  integrations: { [integrationId: string]: boolean };
 }
