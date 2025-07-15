@@ -1,14 +1,15 @@
 import React, { useState, useRef } from 'react';
-import { Settings } from '../types';
+import { Settings, TermsFile } from '../types';
 import { integrationManager } from '../services/integrationManager';
+import { useSettings } from '../hooks/useSettings';
 import Modal from './Modal';
 
 interface MenuOptionsProps {
-  settings: Settings;
-  onSettingsChange: (settings: Settings) => void;
+  onTermsFileChange: (termsFile: TermsFile) => void;
 }
 
-const MenuOptions: React.FC<MenuOptionsProps> = ({ settings, onSettingsChange }) => {
+const MenuOptions: React.FC<MenuOptionsProps> = ({ onTermsFileChange }) => {
+  const { settings, updateSettings } = useSettings();
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -18,7 +19,7 @@ const MenuOptions: React.FC<MenuOptionsProps> = ({ settings, onSettingsChange })
 
   const handleSettingChange = (key: keyof Settings, value: boolean) => {
     const newSettings = { ...settings, [key]: value };
-    onSettingsChange(newSettings);
+    updateSettings(newSettings);
   };
 
   const handleIntegrationToggle = (integrationId: string, enabled: boolean) => {
@@ -29,15 +30,16 @@ const MenuOptions: React.FC<MenuOptionsProps> = ({ settings, onSettingsChange })
         [integrationId]: enabled,
       },
     };
-    onSettingsChange(newSettings);
+    updateSettings(newSettings);
   };
 
-  const handleTermsFileChange = (termsFile: 'philosophy' | 'science') => {
+  const handleTermsFileChange = (termsFile: TermsFile) => {
     const newSettings = {
       ...settings,
       termsFile,
     };
-    onSettingsChange(newSettings);
+    updateSettings(newSettings);
+    onTermsFileChange(termsFile);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -75,8 +77,8 @@ const MenuOptions: React.FC<MenuOptionsProps> = ({ settings, onSettingsChange })
                 <input
                   type="radio"
                   name="termsFile"
-                  checked={settings.termsFile === 'philosophy'}
-                  onChange={() => handleTermsFileChange('philosophy')}
+                  checked={settings.termsFile === TermsFile.PHILOSOPHY}
+                  onChange={() => handleTermsFileChange(TermsFile.PHILOSOPHY)}
                 />
                 📚 Philosophy Terms
               </label>
@@ -86,8 +88,8 @@ const MenuOptions: React.FC<MenuOptionsProps> = ({ settings, onSettingsChange })
                 <input
                   type="radio"
                   name="termsFile"
-                  checked={settings.termsFile === 'science'}
-                  onChange={() => handleTermsFileChange('science')}
+                  checked={settings.termsFile === TermsFile.SCIENCE}
+                  onChange={() => handleTermsFileChange(TermsFile.SCIENCE)}
                 />
                 🔬 Science Terms
               </label>

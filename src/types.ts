@@ -1,3 +1,8 @@
+export enum TermsFile {
+  PHILOSOPHY = 'philosophy',
+  SCIENCE = 'science'
+}
+
 export interface Term {
   word: string;
   definition: string;
@@ -11,6 +16,6 @@ export interface Terms {
 export interface Settings {
   quickErase: boolean;
   saveSettings: boolean;
-  termsFile: 'philosophy' | 'science';
+  termsFile: TermsFile;
   integrations: { [integrationId: string]: boolean };
 }

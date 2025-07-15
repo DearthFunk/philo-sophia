@@ -1,22 +1,22 @@
 import React, { useRef, useEffect } from 'react';
-import { Settings } from '../types';
+import { TermsFile } from '../types';
+import { useSettings } from '../hooks/useSettings';
 import MenuOptions from './MenuOptions';
 
 interface HeaderProps {
-  settings: Settings;
-  onSettingsChange: (settings: Settings) => void;
   searchTerm: string;
   onSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  onTermsFileChange: (termsFile: TermsFile) => void;
 }
 
 const Header: React.FC<HeaderProps> = ({
-  settings,
-  onSettingsChange,
   searchTerm,
   onSearchChange,
-  onKeyDown
+  onKeyDown,
+  onTermsFileChange
 }) => {
+  const { settings } = useSettings();
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -48,8 +48,7 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <div className="header">
       <MenuOptions
-        settings={settings}
-        onSettingsChange={onSettingsChange}
+        onTermsFileChange={onTermsFileChange}
       />
       <input
         ref={inputRef}
@@ -58,7 +57,7 @@ const Header: React.FC<HeaderProps> = ({
         value={searchTerm}
         onChange={onSearchChange}
         onKeyDown={onKeyDown}
-placeholder={`Search ${settings.termsFile} terms...`}
+        placeholder={`Search ${settings.termsFile} terms...`}
         tabIndex={2}
       />
     </div>
