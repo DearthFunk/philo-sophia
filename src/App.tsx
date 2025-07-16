@@ -1,34 +1,21 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navigation from './components/Navigation';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ResultsPage from './pages/ResultsPage';
 import SettingsPage from './pages/SettingsPage';
 import NotFoundPage from './pages/NotFoundPage';
-import { SearchProvider } from './context/SearchContext';
-import './styles.css';
 
-const AppContent: React.FC = () => {
-  return (
-    <div>
-      <Navigation />
-      <main>
-        <Routes>
-          <Route path="/" element={<ResultsPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </main>
-    </div>
-  );
-};
+import './App.css';
+import { Layout } from './Layout';
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <SearchProvider>
-        <AppContent />
-      </SearchProvider>
-    </Router>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout><ResultsPage /></Layout>} />
+        <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
