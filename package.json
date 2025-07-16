@@ -6,7 +6,6 @@
   "author": "dearth funk",
   "type": "module",
   "main": "src/index.tsx",
-
   "private": true,
   "scripts": {
     "start": "webpack serve --mode development",
@@ -30,7 +29,8 @@
   "homepage": "https://github.com/DearthFunk/philosobabel#readme",
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^7.6.3"
   },
   "devDependencies": {
     "@babel/core": "^7.22.0",
@@ -38,6 +38,7 @@
     "@babel/preset-react": "^7.22.0",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "@types/react-router-dom": "^5.3.3",
     "babel-loader": "^9.1.0",
     "css-loader": "^6.8.0",
     "html-webpack-plugin": "^5.5.0",

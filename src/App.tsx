@@ -1,56 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import { Term, TermsFile } from './types';
-import SearchResults from './components/SearchResults';
-import Header from './components/Header';
-import { useSettings } from './hooks/useSettings';
-import { useTerms } from './hooks/useTerms';
-import { useKeyboardInteractions } from './hooks/useKeyboardInteractions';
-import { useSearch } from './hooks/useSearch';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navigation from './components/Navigation';
+import ResultsPage from './pages/ResultsPage';
+import SettingsPage from './pages/SettingsPage';
+import NotFoundPage from './pages/NotFoundPage';
+import { SearchProvider } from './context/SearchContext';
 import './styles.css';
 
-const App: React.FC = () => {
-  const [results, setResults] = useState<Term[]>([]);
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const { settings } = useSettings();
-  const { terms } = useTerms(settings.termsFile);
-
-  // Custom hooks for interactions
-  const { handleKeyDown } = useKeyboardInteractions({
-    terms,
-    setSearchTerm,
-    setResults
-  });
-
-  const { handleInputChange, handleWordClick } = useSearch({
-    terms,
-    setSearchTerm,
-    setResults
-  });
-
-  const handleTermsFileChange = (termsFile: TermsFile) => {
-    // Reset search when terms file changes
-    setSearchTerm('');
-    setResults([]);
-  };
-
-  // Set initial results when terms change
-  useEffect(() => {
-    setResults(terms);
-  }, [terms]);
-
+const AppContent: React.FC = () => {
   return (
     <div>
-      <Header
-        searchTerm={searchTerm}
-        onSearchChange={handleInputChange}
-        onKeyDown={handleKeyDown}
-        onTermsFileChange={handleTermsFileChange}
-      />
-      <SearchResults
-        results={results}
-        onWordClick={handleWordClick}
-      />
+      <Navigation />
+      <main>
+        <Routes>
+          <Route path="/" element={<ResultsPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </main>
     </div>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <Router>
+      <SearchProvider>
+        <AppContent />
+      </SearchProvider>
+    </Router>
   );
 };
 
