@@ -1,4 +1,4 @@
-import { Integration, IntegrationData, IntegrationResult } from '../types/integrations';
+import { Integration, IntegrationData } from '../types/integrations';
 import { dictionaryIntegration } from '../integrations/dictionaryIntegration';
 import { wikipediaIntegration } from '../integrations/wikipediaIntegration';
 import { wordsAPIIntegration } from '../integrations/wordsAPIIntegration';
@@ -101,11 +101,6 @@ class IntegrationManager {
 
   clearSessionCache(): void {
     storageService.clearSessionCache();
-  }
-
-  clearCacheForWord(word: string): void {
-    const integrationIds = this.getAllIntegrations().map(integration => integration.id);
-    storageService.clearCacheForWord(word, integrationIds);
   }
 
   getSessionCacheStats(): {

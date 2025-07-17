@@ -13,10 +13,3 @@ export interface IntegrationData {
   error?: string;
   fallbackMessage?: string;
 }
-
-export interface IntegrationResult {
-  integrationId: string;
-  word: string;
-  data: IntegrationData;
-  timestamp: number;
-}

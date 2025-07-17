@@ -13,8 +13,40 @@ p {
   font-size: 16px;
 }
 
+h1 {
+  color: #333;
+  font-size: 24px;
+  padding-bottom: 20px;
+}
+
 h2 {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+main {
+  padding: 20px;
+}
+/** a route page */
+main > div {
+  padding: 20px;
+  background-color: whitesmoke;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  margin: 0;
+  width: 16px;
+  height: 16px;
+}
+
+button {
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: lightgray;
 }

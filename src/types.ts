@@ -16,6 +16,7 @@ export interface Terms {
 export interface Settings {
   quickErase: boolean;
   saveSettings: boolean;
-  termsFile: TermsFile;
+  selectedTermsFile: TermsFile;
+  selectOnClick: boolean;
   integrations: { [integrationId: string]: boolean };
 }

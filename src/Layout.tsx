@@ -1,16 +1,14 @@
 import { PropsWithChildren } from "react"
 import Navigation from "./components/Navigation"
-import { SearchProvider } from "./context/SearchContext"
+import { AppProvider } from "./context/AppContext"
 
 export const Layout: React.FC<PropsWithChildren> = ({children}) => {
     return (
-        <div>
-            <SearchProvider>
-                <Navigation />
-                <main>
-                    {children}
-                </main>
-            </SearchProvider>
-        </div>
+        <AppProvider>
+            <Navigation />
+            <main>
+                {children}
+            </main>
+        </AppProvider>
     )
 }

@@ -1,16 +1,18 @@
 import React from 'react';
-import SearchResults from '../components/SearchResults';
-import { useSearchContext } from '../context/SearchContext';
+import { useAppContext } from '../context/AppContext';
+import TermResult from '../components/TermResult';
 
 const ResultsPage: React.FC = () => {
-  const { results, handleWordClick } = useSearchContext();
+  const { searchResults } = useAppContext();
 
   return (
     <div className="results-page">
-      <SearchResults
-        results={results}
-        onWordClick={handleWordClick}
-      />
+      {searchResults.map((term, index) => (
+        <TermResult
+          key={`${term.word}-${index}`}
+          term={term}
+        />
+      ))}
     </div>
   );
 };

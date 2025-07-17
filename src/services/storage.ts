@@ -31,7 +31,7 @@ class StorageService {
     try {
       const key = this.getStorageKey(integrationId, word);
       sessionStorage.setItem(key, JSON.stringify(data));
-      console.log(`Cached data for ${integrationId}:${word}`);
+      console.log(`Set Cached data for ${integrationId}:${word}`);
     } catch (error) {
       console.error('Error writing to sessionStorage:', error);
       // If storage is full, clear some integration data
@@ -74,17 +74,6 @@ class StorageService {
     });
     
     console.log('Session cache cleared');
-  }
-
-  clearCacheForWord(word: string, integrationIds: string[]): void {
-    if (!this.STORAGE_AVAILABLE) return;
-    
-    integrationIds.forEach(integrationId => {
-      const key = this.getStorageKey(integrationId, word);
-      sessionStorage.removeItem(key);
-    });
-    
-    console.log(`Session cache cleared for word: ${word}`);
   }
 
   getSessionCacheStats(): {

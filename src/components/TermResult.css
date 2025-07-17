@@ -1,0 +1,29 @@
+.term-result {
+    border: 1px solid lightblue;
+    margin-bottom: 10px;
+    border-radius: 2px;
+    padding: 15px;
+}
+
+.term-result:hover {
+    border: 1px solid lightsteelblue;
+}
+
+.term-result p {
+    margin: 10px;
+}
+
+.term-result .term-title {
+    border: none;
+    background: none;
+    font-size: 26px;
+}
+.term-result .term-title:hover {
+    font-style: italic;
+}
+
+.term-result.exact-match {
+    background-color: lightsteelblue;
+    border: 1px solid #6c757d;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

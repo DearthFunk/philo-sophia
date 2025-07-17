@@ -1,13 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSettings } from '../hooks/useSettings';
-import { useSearchContext } from '../context/SearchContext';
+import { useAppContext } from '../context/AppContext';
 import './Navigation.css';
 
 const Navigation: React.FC = () => {
   const navigate = useNavigate();
-  const { settings } = useSettings();
-  const { searchTerm, handleInputChange, handleKeyDown } = useSearchContext();
+  const { settings, searchTerm, handleInputChange, handleKeyDown } = useAppContext();
 
   const handleFocus = () => {
     navigate('/');
@@ -34,7 +32,7 @@ const Navigation: React.FC = () => {
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           onFocus={handleFocus}
-          placeholder={`Search ${settings.termsFile} terms...`}
+          placeholder={`Search ${settings.selectedTermsFile} terms...`}
           tabIndex={2}
         />
       </div>
