@@ -1,12 +1,13 @@
 .term-result {
-    border: 1px solid var(--blue-accent);
+    background-color: var(--surface-tertiary);
+    border: 1px solid var(--interactive-secondary);
     margin-bottom: 10px;
     border-radius: 2px;
     padding: 15px;
 }
 
 .term-result:hover {
-    border: 1px solid var(--blue-accent);
+    border: 1px solid var(--interactive-primary);
 }
 
 .term-result p {
@@ -16,16 +17,11 @@
 .term-result .term-title {
     border: none;
     background: none;
+    color: var(--text-primary);
     font-size: 26px;
 }
 .term-result .term-title:hover {
-    color: var(--blue-secondary);
-}
-
-.term-result.exact-match {
-    background-color: var(--blue-accent);
-    border: 1px solid var(--text-muted);
-    box-shadow: 0 2px 4px var(--shadow);
+    color: var(--interactive-primary);
 }
 
 .integrations-container {
@@ -36,7 +32,7 @@
 
 .integration-trigger {
     background: none;
-    border: 1px solid var(--border-dark);
+    border: 1px solid var(--border-strong);
     border-radius: 4px;
     padding: 4px 6px;
     cursor: pointer;
@@ -52,8 +48,8 @@
 }
 
 .integration-trigger:hover {
-    background-color: var(--bg-medium);
-    border-color: var(--border-dark);
+    background-color: var(--surface-secondary);
+    border-color: var(--border-strong);
     transform: translateY(-1px);
 }
 
@@ -62,7 +58,7 @@
 }
 
 .integration-trigger:focus {
-    outline: 2px solid var(--blue-primary);
+    outline: 2px solid var(--interactive-primary);
     outline-offset: 1px;
 }
 
@@ -92,17 +88,16 @@
 
 .found-word {
     background: none;
-    border: 1px solid var(--border-light);
-    border-radius: 4px;
     padding: 6px 8px;
+    color: var(--text-primary);
+    display: inline-block;
     margin: 2px 4px 2px 0;
-    cursor: pointer;
     font-size: 14px;
     text-align: left;
     transition: background-color 0.2s ease;
 }
 
 .found-word:hover {
-    background-color: var(--bg-light);
-    border-color: var(--border-dark);
+    background-color: var(--interactive-secondary);
+    border-color: var(--border-strong);
 }

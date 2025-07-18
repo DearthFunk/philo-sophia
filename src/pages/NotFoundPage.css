@@ -9,7 +9,6 @@
 
 .not-found-content {
   text-align: center;
-  max-width: 500px;
 }
 
 .not-found-content h1 {
@@ -33,21 +32,8 @@
 }
 
 .home-button {
-  background: var(--text-muted);
-  color: var(--bg-white);
-  border: none;
+  display: inline;
   padding: 12px 24px;
-  border-radius: 5px;
-  cursor: pointer;
   font-size: 16px;
   transition: background-color 0.2s ease;
-}
-
-.home-button:hover {
-  background: var(--text-subtle);
-}
-
-.home-button:focus {
-  outline: 2px solid var(--blue-primary);
-  outline-offset: 2px;
 }

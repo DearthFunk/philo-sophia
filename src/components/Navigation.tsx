@@ -23,7 +23,7 @@ const Navigation: React.FC = () => {
           aria-label="Open settings"
           tabIndex={1}
         >
-          ⚙️ Settings
+          Settings
         </button>
         <input
           type="text"

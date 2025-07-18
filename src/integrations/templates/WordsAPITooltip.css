@@ -1,0 +1,17 @@
+/* WordsAPI-specific styles */
+.wordsapi-content .source {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 4px 0;
+  font-style: italic;
+}
+
+.source-badge {
+  background: var(--surface-secondary);
+  color: var(--text-primary);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: bold;
+  margin-left: 8px;
+}

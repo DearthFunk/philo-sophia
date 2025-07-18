@@ -1,34 +1,35 @@
 .settings-page .content {
-  position: static;
-  background: var(--bg-primary);
-  border-radius: 8px;
-  border: 1px solid var(--border-faint);
-  box-shadow: 0 2px 10px var(--shadow-light);
+  background: var(--surface-base);
+  border: 1px solid var(--border-subtle);
+  border-radius: 5px;
+  box-shadow: var(--shadow);
   min-width: auto;
   margin-top: 0;
+  overflow: hidden;
+  position: static;
 }
 
 .settings-page .content .section {
-  border-bottom: 1px solid var(--border-faint);
+  border-bottom: 1px solid var(--border-subtle);
 }
 .settings-page .content .section:last-child {
   border-bottom: none;
 }
 .settings-page .content .section .title {
+  color: var(--text-primary);
   font-weight: 600;
   font-size: 14px;
-  color: var(--primary-medium);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   padding: 16px 20px 10px 20px;
-  background-color: var(--bg-quaternary);
-  border-bottom: 1px solid var(--border-accent);
+  background-color: var(--surface-elevated);
+  border-bottom: 1px solid var(--border-subtle);
   margin-bottom: 0;
 }
 
 .settings-page .item {
   padding: 15px 20px;
-  border-bottom: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .settings-page .item:last-child {
@@ -73,12 +74,12 @@
 .cache-info p {
   margin: 4px 0;
   font-size: 14px;
-  color: var(--primary-light);
+  color: var(--text-secondary);
   font-style: normal;
 }
 
 .cache-info p strong {
-  color: var(--primary-dark);
+  color: var(--text-primary);
 }
 
 .cache-actions {
@@ -88,37 +89,12 @@
   align-items: flex-end;
 }
 
-.refresh-button,
 .clear-cache-button {
-  padding: 8px 16px;
-  border: 1px solid var(--border-dark);
-  border-radius: 4px;
-  background: var(--bg-primary);
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  min-width: 140px;
-}
-
-.refresh-button:hover {
-  background: var(--bg-quaternary);
-  border-color: var(--border-darker);
-}
-
-.clear-cache-button {
-  background: var(--error-primary);
-  color: var(--bg-primary);
-  border-color: var(--error-primary);
-}
-
-.clear-cache-button:hover {
-  background: var(--error-secondary);
-  border-color: var(--error-secondary);
+  background-color: var(--status-error);
 }
 
 .cache-cleared-message {
-  color: var(--success-primary);
+  color: var(--status-success);
   font-size: 12px;
   font-weight: 500;
   margin: 4px 0 0 0;
@@ -128,14 +104,14 @@
 
 .cache-help {
   font-size: 13px;
-  color: var(--primary-light);
+  color: var(--text-secondary);
   font-style: italic;
   margin: 0;
   padding: 8px 0;
 }
 
 .cache-help strong {
-  color: var(--primary-dark);
+  color: var(--text-primary);
   font-style: normal;
 }
 
@@ -151,25 +127,8 @@
   margin-bottom: 16px;
 }
 
-.file-upload-button {
-  display: inline-block;
-  padding: 8px 16px;
-  background: var(--blue-primary);
-  color: var(--bg-primary);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: background-color 0.2s ease;
-}
-
 #file-upload {
   display: none;
-}
-
-.file-upload-button:hover {
-  background: var(--blue-secondary);
 }
 
 .custom-files-list {
@@ -179,7 +138,7 @@
 .custom-files-list h4 {
   margin: 0 0 8px 0;
   font-size: 14px;
-  color: var(--primary-dark);
+  color: var(--text-primary);
   font-weight: 600;
 }
 
@@ -194,8 +153,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 12px;
-  background: var(--bg-quaternary);
-  border: 1px solid var(--border-accent);
+  background: var(--surface-tertiary);
+  border: 1px solid var(--border-subtle);
   border-radius: 4px;
   margin-bottom: 4px;
   font-size: 14px;
@@ -206,22 +165,17 @@
 }
 
 .custom-file-item span {
-  color: var(--primary-dark);
+  color: var(--text-primary);
   font-weight: 500;
 }
 
 .delete-button {
-  color: var(--primary-dark);
+  padding: 5px 10px;
   font-weight: bold;
-  border: none;
-  border-radius: 3px;
-  padding: 4px 8px;
-  cursor: pointer;
-  font-size: 12px;
   transition: background-color 0.2s ease;
   float: right;
 }
 
 .delete-button:hover {
-  background: var(--error-primary);
+  background: var(--status-error);
 }

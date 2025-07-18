@@ -79,7 +79,7 @@ const TermResult: React.FC<TermResultProps> = ({ term }) => {
   };
 
   return (
-    <div className={`term-result ${isExactMatch ? 'exact-match' : ''}`}>
+    <div className="term-result">
       <h2>
         <button className="term-title" onClick={() => updateSearchTerm(term.word)}>{term.word}</button>
         <div className="integrations-container">

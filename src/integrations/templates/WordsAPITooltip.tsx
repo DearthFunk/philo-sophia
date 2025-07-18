@@ -1,4 +1,5 @@
 import React from 'react';
+import './WordsAPITooltip.css';
 
 interface WordsAPITooltipProps {
   data: {

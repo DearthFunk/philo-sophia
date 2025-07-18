@@ -177,7 +177,7 @@ const SettingsPage: React.FC = () => {
                   onClick={() => handleFileDelete(fileName)}
                   title="Delete this file"
                 >
-                  🗑️
+                  X
                 </button>
               </div>
             ))
@@ -186,7 +186,6 @@ const SettingsPage: React.FC = () => {
             <div className="item">
               <div className="file-upload-section">
                 <button 
-                  className="file-upload-button"
                   onClick={() => document.getElementById('file-upload')?.click()}
                 >
                 + Add Custom Terms File (.json)
@@ -261,13 +260,13 @@ const SettingsPage: React.FC = () => {
                 className="refresh-button"
                 onClick={refreshCacheStats}
               >
-                🔄 Refresh Stats
+                Refresh Stats
               </button>
               <button 
                 className="clear-cache-button"
                 onClick={handleClearCache}
               >
-                🗑️ Clear All Data
+                Clear All Data
               </button>
               {cacheCleared && (
                 <p className="cache-cleared-message">✅ Cache and settings cleared successfully!</p>

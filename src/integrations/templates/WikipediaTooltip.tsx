@@ -1,4 +1,5 @@
 import React from 'react';
+import './WikipediaTooltip.css';
 
 interface WikipediaTooltipProps {
   data: {

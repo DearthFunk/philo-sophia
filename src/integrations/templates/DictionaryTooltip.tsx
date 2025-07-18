@@ -1,4 +1,5 @@
 import React from 'react';
+import './DictionaryTooltip.css';
 
 interface DictionaryTooltipProps {
   data: {

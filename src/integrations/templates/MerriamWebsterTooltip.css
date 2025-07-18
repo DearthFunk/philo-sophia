@@ -1,0 +1,48 @@
+/* Merriam-Webster-specific styles */
+.merriam-webster-content .meaning-group {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--surface-secondary);
+}
+
+.merriam-webster-content .meaning-group:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.merriam-webster-content .antonyms {
+  margin: 4px 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-style: normal;
+}
+
+.merriam-webster-content .antonyms strong {
+  color: var(--text-primary);
+}
+
+.merriam-webster-content .etymology {
+  background: var(--surface-elevated);
+  padding: 8px;
+  border-radius: 4px;
+  margin: 12px 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+  border-left: 3px solid var(--interactive-primary);
+}
+
+.merriam-webster-content .etymology strong {
+  color: var(--text-primary);
+}
+
+.merriam-webster-content .source-info {
+  text-align: center;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.merriam-webster-content .source-info small {
+  color: var(--text-subtle);
+  font-size: 11px;
+}

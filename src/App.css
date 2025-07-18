@@ -5,7 +5,7 @@
 
 body {
   font-family: "Nunito", sans-serif;
-  background-color: var(--bg-dark);
+  background-color: var(--surface-tertiary);
 }
 
 p {
@@ -27,11 +27,13 @@ h2 {
 
 main {
   padding: 20px;
+  background-color: var(--surface-elevated);
 }
 /** a route page */
 main > div {
   padding: 20px;
-  background-color: var(--bg-light);
+  background-color: var(--surface-secondary);
+  box-shadow: var(--shadow);
 }
 
 input[type="checkbox"],
@@ -42,11 +44,18 @@ input[type="radio"] {
 }
 
 button {
-  padding: 5px;
+  background: var(--interactive-primary);
+  border: 1px solid var(--border-subtle);
+  color: var(--surface-tertiary);
+  padding: 10px 16px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   cursor: pointer;
   border-radius: 5px;
-  cursor: pointer;
 }
 button:hover {
-  background-color: var(--bg-dark);
+  border: 1px solid var(--border-strong);
+  opacity: 0.9;
 }

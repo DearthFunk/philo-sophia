@@ -1,0 +1,41 @@
+/* Wikipedia-specific styles */
+.wikipedia-content .wikipedia-thumbnail {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  border-radius: 4px;
+  margin: 8px 0;
+  float: right;
+  margin-left: 12px;
+}
+
+.wikipedia-content .wikipedia-extract {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  margin: 8px 0;
+  font-style: normal;
+  text-align: justify;
+}
+
+.wikipedia-content .wikipedia-link {
+  display: inline-block;
+  color: var(--interactive-primary);
+  text-decoration: none;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.wikipedia-content .wikipedia-link:hover {
+  text-decoration: underline;
+}
+
+/* Responsive design for Wikipedia thumbnails */
+@media (max-width: 480px) {
+  .wikipedia-content .wikipedia-thumbnail {
+    float: none;
+    margin: 8px auto;
+    display: block;
+  }
+}

@@ -13,8 +13,8 @@ const NotFoundPage: React.FC = () => {
     <div className="not-found-page">
       <div className="not-found-content">
         <h1>404</h1>
-        <h2>Page Not Found</h2>
-        <p>The page you're looking for doesn't exist.</p>
+        <h2>These are not the terms you are looking for...</h2>
+        <p>Go away..</p>
         <button 
           className="home-button"
           onClick={handleGoHome}

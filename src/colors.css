@@ -1,30 +1,27 @@
 :root {
-  /* Core Text Colors (4 colors) */
-  --text-primary: #333;     /* Dark text */
-  --text-secondary: #555;   /* Medium text */
-  --text-muted: #666;       /* Muted text */
-  --text-subtle: #888;      /* Very light text */
+  /* Core Text Colors */
+  --text-primary: #333;     /* Primary text */
+  --text-secondary: #555;   /* Secondary text */
+  --text-muted: #777;       /* Muted text */
   
-  /* Background Colors (4 colors) */
-  --bg-white: white;        /* Pure white */
-  --bg-light: #f8f9fa;      /* Light gray background */
-  --bg-medium: #f0f0f0;     /* Medium gray background */
-  --bg-dark: lightgray;     /* Dark gray background */
+  /* Background Colors (4 layers deep) */
+  --surface-base: #eee;        /* Base surface - Navigation bar */
+  --surface-elevated: #CCC;      /* Elevated surface */
+  --surface-secondary: #DEDEDE;     /* Secondary surface */
+  --surface-tertiary: #fff;     /* Tertiary surface */
   
-  /* Border Colors (3 colors) */
-  --border-light: #eee;     /* Light borders */
-  --border-dark: #ccc;      /* Dark borders */
+  /* Border Colors */
+  --border-subtle: #555;     /* Subtle borders */
+  --border-strong: #000;      /* Strong borders */
   
-  /* Interactive Colors (4 colors) */
-  --blue-primary: #007bff;  /* Primary blue */
-  --blue-secondary: #1976d2; /* Secondary blue */
-  --blue-light: #e3f2fd;    /* Light blue background */
-  --blue-accent: lightsteelblue; /* Blue accent/hover */
+  /* Interactive Colors */
+  --interactive-primary: #007bff;  /* Primary interactive */
+  --interactive-secondary: #bcebfb; /* Secondary interactive */
   
-  /* Status Colors (2 colors) */
-  --success: #28a745;       /* Success green */
-  --error: #dc3545;         /* Error red */
+  /* Status Colors */
+  --status-success: #28a745;       /* Success status */
+  --status-error: #dc3545;         /* Error status */
   
-  /* Effects (1 color) */
-  --shadow: rgba(0, 0, 0, 0.1); /* Box shadows */
+  /* Effects */
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
