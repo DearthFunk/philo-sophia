@@ -1,8 +1,8 @@
 .integration-tooltip {
-  background: white;
-  border: 1px solid #ccc;
+  background: var(--bg-white);
+  border: 1px solid var(--border-dark);
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px var(--shadow);
   max-width: 400px;
   min-width: 250px;
   font-family: "Nunito", sans-serif;
@@ -18,7 +18,7 @@
   height: 0;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-bottom: 6px solid white;
+  border-bottom: 6px solid var(--bg-white);
 }
 
 .integration-tooltip-arrow::before {
@@ -30,7 +30,7 @@
   height: 0;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-bottom: 6px solid #ccc;
+  border-bottom: 6px solid var(--border-dark);
 }
 
 .integration-tooltip-content {
@@ -43,13 +43,13 @@
   gap: 8px;
   margin-bottom: 12px;
   padding-bottom: 8px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-light);
 }
 
 .integration-tooltip-header h3 {
   margin: 0;
   font-size: 18px;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .integration-icon {
@@ -57,7 +57,7 @@
 }
 
 .phonetic {
-  color: #666;
+  color: var(--text-muted);
   font-style: italic;
   font-size: 14px;
 }
@@ -67,14 +67,14 @@
   align-items: center;
   gap: 12px;
   padding: 20px;
-  color: #666;
+  color: var(--text-muted);
 }
 
 .loading-spinner {
   width: 20px;
   height: 20px;
-  border: 2px solid #f3f3f3;
-  border-top: 2px solid #3498db;
+  border: 2px solid var(--bg-medium);
+  border-top: 2px solid var(--blue-primary);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -86,7 +86,7 @@
 
 .integration-tooltip-error {
   padding: 16px;
-  color: #d32f2f;
+  color: var(--error);
   font-style: italic;
 }
 
@@ -98,7 +98,7 @@
 .dictionary-content .definition-item {
   margin-bottom: 12px;
   padding-bottom: 8px;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--bg-medium);
 }
 
 .dictionary-content .definition-item:last-child {
@@ -108,8 +108,8 @@
 
 .dictionary-content .part-of-speech {
   display: inline-block;
-  background: #e3f2fd;
-  color: #1976d2;
+  background: var(--blue-light);
+  color: var(--blue-secondary);
   padding: 2px 6px;
   border-radius: 4px;
   font-size: 12px;
@@ -121,26 +121,26 @@
   margin: 6px 0;
   font-size: 14px;
   line-height: 1.4;
-  color: #333;
+  color: var(--text-primary);
   font-style: normal;
 }
 
 .dictionary-content .example {
   margin: 4px 0;
   font-size: 13px;
-  color: #666;
+  color: var(--text-muted);
   font-style: italic;
 }
 
 .dictionary-content .synonyms {
   margin: 4px 0;
   font-size: 13px;
-  color: #555;
+  color: var(--text-secondary);
   font-style: normal;
 }
 
 .dictionary-content .synonyms strong {
-  color: #333;
+  color: var(--text-primary);
 }
 
 /* Wikipedia-specific styles */
@@ -157,7 +157,7 @@
 .wikipedia-content .wikipedia-extract {
   font-size: 14px;
   line-height: 1.5;
-  color: #333;
+  color: var(--text-primary);
   margin: 8px 0;
   font-style: normal;
   text-align: justify;
@@ -165,7 +165,7 @@
 
 .wikipedia-content .wikipedia-link {
   display: inline-block;
-  color: #1976d2;
+  color: var(--blue-secondary);
   text-decoration: none;
   margin-top: 8px;
   font-size: 14px;
@@ -187,14 +187,14 @@
 /* WordsAPI-specific styles */
 .wordsapi-content .source {
   font-size: 12px;
-  color: #666;
+  color: var(--text-muted);
   margin: 4px 0;
   font-style: italic;
 }
 
 .source-badge {
-  background: #f0f0f0;
-  color: #333;
+  background: var(--bg-medium);
+  color: var(--text-primary);
   padding: 2px 6px;
   border-radius: 3px;
   font-size: 11px;
@@ -206,7 +206,7 @@
 .merriam-webster-content .meaning-group {
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--bg-medium);
 }
 
 .merriam-webster-content .meaning-group:last-child {
@@ -217,37 +217,37 @@
 .merriam-webster-content .antonyms {
   margin: 4px 0;
   font-size: 13px;
-  color: #555;
+  color: var(--text-secondary);
   font-style: normal;
 }
 
 .merriam-webster-content .antonyms strong {
-  color: #333;
+  color: var(--text-primary);
 }
 
 .merriam-webster-content .etymology {
-  background: #f8f9fa;
+  background: var(--bg-light);
   padding: 8px;
   border-radius: 4px;
   margin: 12px 0;
   font-size: 13px;
-  color: #555;
-  border-left: 3px solid #007bff;
+  color: var(--text-secondary);
+  border-left: 3px solid var(--blue-primary);
 }
 
 .merriam-webster-content .etymology strong {
-  color: #333;
+  color: var(--text-primary);
 }
 
 .merriam-webster-content .source-info {
   text-align: center;
   margin-top: 8px;
   padding-top: 8px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--border-light);
 }
 
 .merriam-webster-content .source-info small {
-  color: #888;
+  color: var(--text-subtle);
   font-size: 11px;
 }
 

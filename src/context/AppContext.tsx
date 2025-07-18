@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { Term, TermsFile, Settings } from '../types';
+import { Term, TermsFile, Settings, TermsFileType } from '../types';
 import { integrationManager } from '../services/integrationManager';
-import philosophyTerms from '../terms/philosobabel';
-import scienceTerms from '../terms/sciencebabel';
+import philosophyTerms from '../terms/philosobabel.json';
+import scienceTerms from '../terms/sciencebabel.json';
+import { storageService } from '../services/storage';
 
 // LocalStorage keys for persisting user settings
 const STORAGE_KEY = 'philosobabel-settings';
@@ -105,7 +106,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         const mergedSettings = {
           ...parsedSettings,
           // Provide fallbacks for settings that might not exist in saved data
-          selectedTermsFile: parsedSettings.selectedTermsFile || TermsFile.PHILOSOPHY,
+selectedTermsFile: parsedSettings.selectedTermsFile || TermsFile.PHILOSOPHY,
+          customTermsFiles: parsedSettings.customTermsFiles || [],
           selectOnClick: parsedSettings.selectOnClick !== undefined ? parsedSettings.selectOnClick : true,
           integrations: {
             // Start with current integrations (handles new integrations)
@@ -190,7 +192,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
    */
   const loadTerms = useCallback(() => {
     // Select the appropriate terms file based on user setting
-    const selectedTerms = settings.selectedTermsFile === TermsFile.SCIENCE ? scienceTerms : philosophyTerms;
+    let selectedTerms: { [key: string]: string };
+    
+    if (settings.selectedTermsFile === TermsFile.SCIENCE) {
+      selectedTerms = scienceTerms as { [key: string]: string };
+    } else if (settings.selectedTermsFile === TermsFile.PHILOSOPHY) {
+      selectedTerms = philosophyTerms as { [key: string]: string };
+    } else {
+      // Handle custom files
+      const customTerms = storageService.getCustomTermsFile(settings.selectedTermsFile);
+      if (customTerms) {
+        selectedTerms = customTerms;
+      } else {
+        // Fallback to philosophy terms if custom file not found
+        selectedTerms = philosophyTerms as { [key: string]: string };
+      }
+    }
     
     // Convert from object format {word: definition} to array format
     const mappedTerms: Term[] = Object.keys(selectedTerms).map((key) => ({

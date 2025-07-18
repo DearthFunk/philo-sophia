@@ -5,7 +5,7 @@
 
 body {
   font-family: "Nunito", sans-serif;
-  background-color: lightgray;
+  background-color: var(--bg-dark);
 }
 
 p {
@@ -14,7 +14,7 @@ p {
 }
 
 h1 {
-  color: #333;
+  color: var(--text-primary);
   font-size: 24px;
   padding-bottom: 20px;
 }
@@ -31,7 +31,7 @@ main {
 /** a route page */
 main > div {
   padding: 20px;
-  background-color: whitesmoke;
+  background-color: var(--bg-light);
 }
 
 input[type="checkbox"],
@@ -48,5 +48,5 @@ button {
   cursor: pointer;
 }
 button:hover {
-  background-color: lightgray;
+  background-color: var(--bg-dark);
 }

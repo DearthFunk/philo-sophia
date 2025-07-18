@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Settings, TermsFile } from '../types';
+import { Settings, TermsFile, TermsFileType } from '../types';
 import { useAppContext } from '../context/AppContext';
 import { integrationManager } from '../services/integrationManager';
+import { storageService } from '../services/storage';
 
 import './SettingsPage.css';
 
@@ -26,7 +27,7 @@ const SettingsPage: React.FC = () => {
     updateSettings(newSettings);
   };
 
-  const handleTermsFileChange = (selectedTermsFile: TermsFile) => {
+  const handleTermsFileChange = (selectedTermsFile: TermsFileType) => {
     const newSettings = {
       ...settings,
       selectedTermsFile,
@@ -58,8 +59,64 @@ const SettingsPage: React.FC = () => {
     setCacheStats(integrationManager.getSessionCacheStats());
   };
 
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const jsonData = JSON.parse(e.target?.result as string);
+          const fileName = file.name;
+          
+          // Validate that the JSON contains key-value pairs (terms)
+          if (typeof jsonData !== 'object' || jsonData === null) {
+            alert('Invalid JSON file. Please upload a valid terms list with key-value pairs.');
+            return;
+          }
+          
+          if (settings.customTermsFiles?.includes(fileName)) {
+            alert('A file with this name has already been added. Choose a different file or rename it.');
+          } else {
+            // Store the file data
+            storageService.storeCustomTermsFile(fileName, jsonData);
+            
+            // Update settings to include this file
+            const newTermsFiles = settings.customTermsFiles ? [...settings.customTermsFiles, fileName] : [fileName];
+            updateSettings({
+              ...settings,
+              customTermsFiles: newTermsFiles,
+            });
+          }
+        } catch (error) {
+          alert('Invalid JSON file. Please upload a valid terms list.');
+        }
+      };
+      reader.readAsText(file);
+    }
+    
+    // Clear the input so the same file can be uploaded again
+    event.target.value = '';
+  };
+
+  const handleFileDelete = (fileName: string) => {
+    // Remove from storage
+    storageService.removeCustomTermsFile(fileName);
+    
+    // Update settings to remove this file
+    const updatedTermsFiles = settings.customTermsFiles?.filter(name => name !== fileName);
+    
+    // If the deleted file was the currently selected one, switch to default
+    const newSelectedTermsFile = settings.selectedTermsFile === fileName ? TermsFile.PHILOSOPHY : settings.selectedTermsFile;
+    
+    updateSettings({
+      ...settings,
+      customTermsFiles: updatedTermsFiles,
+      selectedTermsFile: newSelectedTermsFile,
+    });
+  };
+
   return (
-    <div className="settings-page">
+    <div className={`settings-page ${!customizeEnabled ? 'customize-disabled' : ''}`}>
       <h1>Settings</h1>
       <div className="content">
         <div className="section">
@@ -79,7 +136,7 @@ const SettingsPage: React.FC = () => {
         <div className="section">
           <div className="title">Terms Selection</div>
           <div className="item">
-            <label style={{ opacity: customizeEnabled ? 1 : 0.5 }}>
+            <label>
               <input
                 type="radio"
                 name="selectedTermsFile"
@@ -91,7 +148,7 @@ const SettingsPage: React.FC = () => {
             </label>
           </div>
           <div className="item">
-            <label style={{ opacity: customizeEnabled ? 1 : 0.5 }}>
+            <label>
               <input
                 type="radio"
                 name="selectedTermsFile"
@@ -102,12 +159,53 @@ const SettingsPage: React.FC = () => {
               🔬 Science Terms
             </label>
           </div>
+          {customizeEnabled && settings.customTermsFiles && settings.customTermsFiles.length > 0 && (
+            settings.customTermsFiles.map(fileName => (
+              <div key={fileName} className="item">
+                <label>
+                  <input
+                    type="radio"
+                    name="selectedTermsFile"
+                    checked={settings.selectedTermsFile === fileName}
+                    onChange={() => handleTermsFileChange(fileName)}
+                    disabled={!customizeEnabled}
+                  />
+                  📄 {fileName}
+                </label>
+                <button 
+                  className="delete-button"
+                  onClick={() => handleFileDelete(fileName)}
+                  title="Delete this file"
+                >
+                  🗑️
+                </button>
+              </div>
+            ))
+          )}
+          {customizeEnabled && (
+            <div className="item">
+              <div className="file-upload-section">
+                <button 
+                  className="file-upload-button"
+                  onClick={() => document.getElementById('file-upload')?.click()}
+                >
+                + Add Custom Terms File (.json)
+                </button>
+                <input
+                  id="file-upload"
+                  type="file"
+                  accept=".json"
+                  onChange={handleFileUpload}
+                />
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="section">
           <div className="title">General Settings</div>
           <div className="item">
-            <label style={{ opacity: customizeEnabled ? 1 : 0.5 }}>
+            <label>
               <input
                 type="checkbox"
                 checked={settings.quickErase}
@@ -119,7 +217,7 @@ const SettingsPage: React.FC = () => {
           </div>
           
           <div className="item">
-            <label style={{ opacity: customizeEnabled ? 1 : 0.5 }}>
+            <label>
               <input
                 type="checkbox"
                 checked={settings.selectOnClick}
@@ -135,7 +233,7 @@ const SettingsPage: React.FC = () => {
           <div className="title">Integrations</div>
           {integrationManager.getAllIntegrations().map((integration) => (
             <div key={integration.id} className="item">
-              <label style={{ opacity: customizeEnabled ? 1 : 0.5 }}>
+              <label>
                 <input
                   type="checkbox"
                   checked={settings.integrations[integration.id] || false}

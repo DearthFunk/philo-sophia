@@ -1,12 +1,12 @@
 .term-result {
-    border: 1px solid lightblue;
+    border: 1px solid var(--blue-accent);
     margin-bottom: 10px;
     border-radius: 2px;
     padding: 15px;
 }
 
 .term-result:hover {
-    border: 1px solid lightsteelblue;
+    border: 1px solid var(--blue-accent);
 }
 
 .term-result p {
@@ -19,13 +19,13 @@
     font-size: 26px;
 }
 .term-result .term-title:hover {
-    color: darkblue;
+    color: var(--blue-secondary);
 }
 
 .term-result.exact-match {
-    background-color: lightsteelblue;
-    border: 1px solid #6c757d;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: var(--blue-accent);
+    border: 1px solid var(--text-muted);
+    box-shadow: 0 2px 4px var(--shadow);
 }
 
 .integrations-container {
@@ -36,7 +36,7 @@
 
 .integration-trigger {
     background: none;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-dark);
     border-radius: 4px;
     padding: 4px 6px;
     cursor: pointer;
@@ -52,8 +52,8 @@
 }
 
 .integration-trigger:hover {
-    background-color: #f5f5f5;
-    border-color: #bbb;
+    background-color: var(--bg-medium);
+    border-color: var(--border-dark);
     transform: translateY(-1px);
 }
 
@@ -62,7 +62,7 @@
 }
 
 .integration-trigger:focus {
-    outline: 2px solid #3498db;
+    outline: 2px solid var(--blue-primary);
     outline-offset: 1px;
 }
 
@@ -92,7 +92,7 @@
 
 .found-word {
     background: none;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border-light);
     border-radius: 4px;
     padding: 6px 8px;
     margin: 2px 4px 2px 0;
@@ -103,6 +103,6 @@
 }
 
 .found-word:hover {
-    background-color: #f8f9fa;
-    border-color: #c0c0c0;
+    background-color: var(--bg-light);
+    border-color: var(--border-dark);
 }

@@ -125,6 +125,67 @@ class StorageService {
       storageUsed: `${Math.round(storageUsed / 1024)} KB`
     };
   }
+
+  // Custom terms file storage
+  private readonly CUSTOM_TERMS_PREFIX = 'philosobabel-custom-terms-';
+
+  storeCustomTermsFile(fileName: string, data: { [key: string]: string }): void {
+    if (!this.STORAGE_AVAILABLE) return;
+    
+    try {
+      const key = `${this.CUSTOM_TERMS_PREFIX}${fileName}`;
+      localStorage.setItem(key, JSON.stringify(data));
+      console.log(`Stored custom terms file: ${fileName}`);
+    } catch (error) {
+      console.error('Error storing custom terms file:', error);
+      throw new Error('Failed to store custom terms file');
+    }
+  }
+
+  getCustomTermsFile(fileName: string): { [key: string]: string } | null {
+    if (!this.STORAGE_AVAILABLE) return null;
+    
+    try {
+      const key = `${this.CUSTOM_TERMS_PREFIX}${fileName}`;
+      const stored = localStorage.getItem(key);
+      if (stored) {
+        return JSON.parse(stored);
+      }
+    } catch (error) {
+      console.error('Error reading custom terms file:', error);
+    }
+    return null;
+  }
+
+  removeCustomTermsFile(fileName: string): void {
+    if (!this.STORAGE_AVAILABLE) return;
+    
+    try {
+      const key = `${this.CUSTOM_TERMS_PREFIX}${fileName}`;
+      localStorage.removeItem(key);
+      console.log(`Removed custom terms file: ${fileName}`);
+    } catch (error) {
+      console.error('Error removing custom terms file:', error);
+    }
+  }
+
+  clearAllCustomTermsFiles(): void {
+    if (!this.STORAGE_AVAILABLE) return;
+    
+    const keysToRemove: string[] = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith(this.CUSTOM_TERMS_PREFIX)) {
+        keysToRemove.push(key);
+      }
+    }
+    
+    keysToRemove.forEach(key => {
+      localStorage.removeItem(key);
+    });
+    
+    console.log('All custom terms files cleared');
+  }
 }
 
 export const storageService = new StorageService();

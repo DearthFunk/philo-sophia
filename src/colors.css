@@ -1,0 +1,30 @@
+:root {
+  /* Core Text Colors (4 colors) */
+  --text-primary: #333;     /* Dark text */
+  --text-secondary: #555;   /* Medium text */
+  --text-muted: #666;       /* Muted text */
+  --text-subtle: #888;      /* Very light text */
+  
+  /* Background Colors (4 colors) */
+  --bg-white: white;        /* Pure white */
+  --bg-light: #f8f9fa;      /* Light gray background */
+  --bg-medium: #f0f0f0;     /* Medium gray background */
+  --bg-dark: lightgray;     /* Dark gray background */
+  
+  /* Border Colors (3 colors) */
+  --border-light: #eee;     /* Light borders */
+  --border-dark: #ccc;      /* Dark borders */
+  
+  /* Interactive Colors (4 colors) */
+  --blue-primary: #007bff;  /* Primary blue */
+  --blue-secondary: #1976d2; /* Secondary blue */
+  --blue-light: #e3f2fd;    /* Light blue background */
+  --blue-accent: lightsteelblue; /* Blue accent/hover */
+  
+  /* Status Colors (2 colors) */
+  --success: #28a745;       /* Success green */
+  --error: #dc3545;         /* Error red */
+  
+  /* Effects (1 color) */
+  --shadow: rgba(0, 0, 0, 0.1); /* Box shadows */
+}

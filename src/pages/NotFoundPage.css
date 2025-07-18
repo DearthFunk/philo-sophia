@@ -14,27 +14,27 @@
 
 .not-found-content h1 {
   font-size: 72px;
-  color: #666;
+  color: var(--text-muted);
   margin: 0 0 20px 0;
   font-weight: bold;
 }
 
 .not-found-content h2 {
   font-size: 24px;
-  color: #333;
+  color: var(--text-primary);
   margin: 0 0 15px 0;
 }
 
 .not-found-content p {
   font-size: 16px;
-  color: #666;
+  color: var(--text-muted);
   margin: 0 0 30px 0;
   line-height: 1.5;
 }
 
 .home-button {
-  background: darkslategrey;
-  color: white;
+  background: var(--text-muted);
+  color: var(--bg-white);
   border: none;
   padding: 12px 24px;
   border-radius: 5px;
@@ -44,10 +44,10 @@
 }
 
 .home-button:hover {
-  background: #2f4f4f;
+  background: var(--text-subtle);
 }
 
 .home-button:focus {
-  outline: 2px solid dodgerblue;
+  outline: 2px solid var(--blue-primary);
   outline-offset: 2px;
 }

@@ -4,6 +4,7 @@ import ResultsPage from './pages/ResultsPage';
 import SettingsPage from './pages/SettingsPage';
 import NotFoundPage from './pages/NotFoundPage';
 
+import './colors.css';
 import './App.css';
 import { Layout } from './Layout';
 
