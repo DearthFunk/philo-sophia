@@ -1,3 +1,5 @@
+import React from 'react';
+
 export interface Integration {
   id: string;
   name: string;
@@ -5,6 +7,7 @@ export interface Integration {
   description: string;
   fetchData: (word: string) => Promise<IntegrationData>;
   enabled: boolean;
+  tooltipTemplate?: (data: any, word: string) => React.ReactElement;
 }
 
 export interface IntegrationData {

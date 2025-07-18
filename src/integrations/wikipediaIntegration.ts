@@ -1,4 +1,6 @@
+import React from 'react';
 import { Integration, IntegrationData } from '../types/integrations';
+import WikipediaTooltip from './templates/WikipediaTooltip';
 
 interface WikipediaSearchResponse {
   query: {
@@ -66,5 +68,6 @@ export const wikipediaIntegration: Integration = {
   icon: '🌐',
   description: 'Get Wikipedia summary',
   fetchData: fetchWikipediaData,
-  enabled: false // Disabled by default - can be enabled in settings
+  enabled: true, // Enabled for testing
+  tooltipTemplate: (data: any, word: string) => React.createElement(WikipediaTooltip, { data, word })
 };

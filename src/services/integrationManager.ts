@@ -99,6 +99,10 @@ class IntegrationManager {
     }
   }
 
+  clearCachedData(integrationId: string, word: string): boolean {
+    return storageService.clearCachedData(integrationId, word);
+  }
+
   clearSessionCache(): void {
     storageService.clearSessionCache();
   }

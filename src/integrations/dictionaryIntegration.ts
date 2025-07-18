@@ -1,4 +1,6 @@
+import React from 'react';
 import { Integration, IntegrationData } from '../types/integrations';
+import DictionaryTooltip from './templates/DictionaryTooltip';
 
 interface DictionaryAPIResponse {
   word: string;
@@ -76,5 +78,6 @@ export const dictionaryIntegration: Integration = {
   icon: '📖',
   description: 'Get definitions from Dictionary API',
   fetchData: fetchDictionaryData,
-  enabled: true
+  enabled: true,
+  tooltipTemplate: (data: any, word: string) => React.createElement(DictionaryTooltip, { data, word })
 };

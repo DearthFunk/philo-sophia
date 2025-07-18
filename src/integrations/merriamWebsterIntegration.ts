@@ -1,4 +1,6 @@
+import React from 'react';
 import { Integration, IntegrationData } from '../types/integrations';
+import MerriamWebsterTooltip from './templates/MerriamWebsterTooltip';
 
 interface MerriamWebsterResponse {
   meta: {
@@ -95,5 +97,6 @@ export const merriamWebsterIntegration: Integration = {
   icon: '📘',
   description: 'Get authoritative definitions from Merriam-Webster',
   fetchData: fetchMerriamWebsterData,
-  enabled: true
+  enabled: true,
+  tooltipTemplate: (data: any, word: string) => React.createElement(MerriamWebsterTooltip, { data, word })
 };

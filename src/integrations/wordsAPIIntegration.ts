@@ -1,4 +1,6 @@
+import React from 'react';
 import { Integration, IntegrationData } from '../types/integrations';
+import WordsAPITooltip from './templates/WordsAPITooltip';
 
 interface WordsAPIResponse {
   word: string;
@@ -74,5 +76,6 @@ export const wordsAPIIntegration: Integration = {
   icon: '📝',
   description: 'Get comprehensive word data from WordsAPI',
   fetchData: fetchWordsAPIData,
-  enabled: true
+  enabled: true,
+  tooltipTemplate: (data: any, word: string) => React.createElement(WordsAPITooltip, { data, word })
 };

@@ -57,6 +57,24 @@ class StorageService {
     });
   }
 
+  clearCachedData(integrationId: string, word: string): boolean {
+    if (!this.STORAGE_AVAILABLE) return false;
+    
+    try {
+      const key = this.getStorageKey(integrationId, word);
+      const existed = sessionStorage.getItem(key) !== null;
+      if (existed) {
+        sessionStorage.removeItem(key);
+        console.log(`Cleared cached data for ${integrationId}:${word}`);
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error('Error clearing cached data:', error);
+      return false;
+    }
+  }
+
   clearSessionCache(): void {
     if (!this.STORAGE_AVAILABLE) return;
     
