@@ -26,6 +26,12 @@ const SettingsPage: React.FC = () => {
     return availableThemes.includes(savedTheme) ? savedTheme : 'default';
   });
 
+  // Effect to handle customize setting changes
+  useEffect(() => {
+    // When customize setting changes, dispatch event to update theme
+    window.dispatchEvent(new CustomEvent('theme-changed'));
+  }, [customizeEnabled]);
+
   // Note: Theme application is handled by App.tsx to avoid conflicts
 
   const handleThemeChange = (theme: Theme) => {
@@ -34,6 +40,15 @@ const SettingsPage: React.FC = () => {
     
     // Dispatch custom event to notify other components of theme change
     window.dispatchEvent(new CustomEvent('theme-changed'));
+  };
+
+  // Get the effective theme (default if customize is off, otherwise stored theme)
+  const getEffectiveTheme = (): Theme => {
+    if (!customizeEnabled) {
+      return 'default';
+    }
+    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) as Theme;
+    return availableThemes.includes(savedTheme) ? savedTheme : 'default';
   };
 
   const getThemeDisplayName = (theme: Theme): string => {
@@ -244,8 +259,9 @@ const SettingsPage: React.FC = () => {
                 <input
                   type="radio"
                   name="theme"
-                  checked={currentTheme === theme}
+                  checked={getEffectiveTheme() === theme}
                   onChange={() => handleThemeChange(theme)}
+                  disabled={!customizeEnabled}
                 />
                 {getThemeDisplayName(theme)}
               </label>
