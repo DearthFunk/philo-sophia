@@ -45,6 +45,11 @@ export default {
       template: './src/index.html',
       title: 'philosobabel',
     }),
+    new HtmlWebpackPlugin({
+      template: './src/404.html',
+      filename: '404.html',
+      inject: false,
+    }),
   ],
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.jsx'],

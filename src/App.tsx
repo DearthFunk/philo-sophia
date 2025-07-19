@@ -85,8 +85,11 @@ const ThemeManager: React.FC = () => {
 };
 
 const App: React.FC = () => {
+  // Set basename for GitHub Pages deployment
+  const basename = process.env.NODE_ENV === 'production' ? '/philosobabel' : '/';
+  
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <ThemeManager />
       <Routes>
         <Route path="/" element={<Layout><ResultsPage /></Layout>} />

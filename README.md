@@ -1,4 +1,4 @@
-🌐 **Live Demo**: https://dearthfunk.github.io/philosobabel/dist
+🌐 **Live Demo**: https://dearthfunk.github.io/philosobabel
 
 🌐 **Live Demo**: https://philosobabel.com/
 
