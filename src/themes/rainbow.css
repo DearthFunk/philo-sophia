@@ -1,0 +1,28 @@
+.theme-rainbow {
+  /* Core Text Colors */
+  --text-primary: #1a0033;     /* Primary text - Deep purple */
+  --text-secondary: #003366;   /* Secondary text - Deep blue */
+  --text-muted: #004d00;       /* Muted text - Deep green */
+  
+  /* Background Colors (4 layers deep) - Rainbow spectrum */
+  --surface-base: #ffe6e6;        /* Base surface - Light red/pink */
+  --surface-elevated: #fff0e6;    /* Elevated surface - Light orange */
+  --surface-secondary: #e6f3ff;   /* Secondary surface - Light blue */
+  --surface-tertiary: #f0e6ff;    /* Tertiary surface - Light purple */
+  
+  /* Border Colors - Rainbow spectrum */
+  --border-subtle: #ff9999;     /* Subtle borders - Coral */
+  --border-strong: #0066cc;      /* Strong borders - Blue */
+  
+  /* Interactive Colors - Rainbow spectrum */
+  --interactive-primary: #ff0000;  /* Primary interactive - Bright red */
+  --interactive-secondary: #00cc66; /* Secondary interactive - Green */
+  --interactive-text: #ffffff;     /* Interactive text */
+  
+  /* Status Colors - Rainbow spectrum */
+  --status-success: #00cc00;       /* Success status - Bright green */
+  --status-error: #ff6600;         /* Error status - Orange */
+  
+  /* Effects - Rainbow gradient shadow */
+  --shadow: 0 4px 20px rgba(255, 0, 150, 0.3);
+}

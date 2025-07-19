@@ -43,6 +43,6 @@
 }
 
 .merriam-webster-content .source-info small {
-  color: var(--text-subtle);
+  color: var(--text-muted);
   font-size: 11px;
 }

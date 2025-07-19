@@ -1,0 +1,28 @@
+.theme-dark {
+  /* Core Text Colors */
+  --text-primary: #e1e1e1;     /* Primary text */
+  --text-secondary: #b3b3b3;   /* Secondary text */
+  --text-muted: #888888;       /* Muted text */
+  
+  /* Background Colors (4 layers deep) */
+  --surface-base: #1e1e1e;        /* Base surface - Navigation bar */
+  --surface-elevated: #2d2d2d;    /* Elevated surface */
+  --surface-secondary: #3a3a3a;   /* Secondary surface */
+  --surface-tertiary: #121212;    /* Tertiary surface */
+  
+  /* Border Colors */
+  --border-subtle: #404040;     /* Subtle borders */
+  --border-strong: #606060;      /* Strong borders */
+  
+  /* Interactive Colors */
+  --interactive-primary: #235a8e;  /* Primary interactive */
+  --interactive-secondary: #035dda; /* Secondary interactive */
+  --interactive-text: #121212;     /* Interactive text */
+  
+  /* Status Colors */
+  --status-success: #4caf50;       /* Success status */
+  --status-error: #cf6679;         /* Error status */
+  
+  /* Effects */
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}

@@ -12,6 +12,7 @@
 
 .term-result p {
     margin: 10px;
+    color: var(--text-secondary);
 }
 
 .term-result .term-title {

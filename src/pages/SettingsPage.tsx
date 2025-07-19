@@ -1,15 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Settings, TermsFile, TermsFileType } from '../types';
 import { useAppContext } from '../context/AppContext';
 import { integrationManager } from '../services/integrationManager';
 import { storageService } from '../services/storage';
 
 import './SettingsPage.css';
+import '../themes/default.css';
+import '../themes/light.css';
+import '../themes/dark.css';
+import '../themes/rainbow.css';
+
+type Theme = 'default' | 'light' | 'dark' | 'rainbow';
+
+const THEME_STORAGE_KEY = 'philosobabel-theme';
 
 const SettingsPage: React.FC = () => {
   const { settings, updateSettings, customizeEnabled, setCustomizeEnabled } = useAppContext();
   const [cacheStats, setCacheStats] = useState(() => integrationManager.getSessionCacheStats());
   const [cacheCleared, setCacheCleared] = useState(false);
+  
+  // Theme management
+  const availableThemes: Theme[] = ['default', 'light', 'dark', 'rainbow'];
+  const [currentTheme, setCurrentTheme] = useState<Theme>(() => {
+    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) as Theme;
+    return availableThemes.includes(savedTheme) ? savedTheme : 'default';
+  });
+
+  // Note: Theme application is handled by App.tsx to avoid conflicts
+
+  const handleThemeChange = (theme: Theme) => {
+    setCurrentTheme(theme);
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
+    
+    // Dispatch custom event to notify other components of theme change
+    window.dispatchEvent(new CustomEvent('theme-changed'));
+  };
+
+  const getThemeDisplayName = (theme: Theme): string => {
+    const themeNames: Record<Theme, string> = {
+      default: '🎨 Default',
+      light: '☀️ Light',
+      dark: '🌙 Dark',
+      rainbow: '🌈 Rainbow'
+    };
+    return themeNames[theme];
+  };
 
   const handleSettingChange = (key: keyof Settings, value: boolean) => {
     const newSettings = { ...settings, [key]: value };
@@ -199,6 +234,23 @@ const SettingsPage: React.FC = () => {
               </div>
             </div>
           )}
+        </div>
+
+        <div className="section">
+          <div className="title">Theme Selection</div>
+          {availableThemes.map((theme) => (
+            <div key={theme} className="item">
+              <label>
+                <input
+                  type="radio"
+                  name="theme"
+                  checked={currentTheme === theme}
+                  onChange={() => handleThemeChange(theme)}
+                />
+                {getThemeDisplayName(theme)}
+              </label>
+            </div>
+          ))}
         </div>
 
         <div className="section">

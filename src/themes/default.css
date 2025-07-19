@@ -1,4 +1,4 @@
-:root {
+.theme-default {
   /* Core Text Colors */
   --text-primary: #333;     /* Primary text */
   --text-secondary: #555;   /* Secondary text */
@@ -17,6 +17,7 @@
   /* Interactive Colors */
   --interactive-primary: #007bff;  /* Primary interactive */
   --interactive-secondary: #bcebfb; /* Secondary interactive */
+  --interactive-text: #ffffff;     /* Interactive text */
   
   /* Status Colors */
   --status-success: #28a745;       /* Success status */
