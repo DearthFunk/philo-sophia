@@ -14,7 +14,10 @@
     "dev": "webpack --mode development --watch",
     "dev:serve": "webpack serve --mode development --open",
     "type-check": "tsc --project tsconfig.check.json",
-    "type-check:watch": "tsc --project tsconfig.check.json --watch"
+    "type-check:watch": "tsc --project tsconfig.check.json --watch",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -36,15 +39,21 @@
     "@babel/core": "^7.22.0",
     "@babel/preset-env": "^7.22.0",
     "@babel/preset-react": "^7.22.0",
+    "@eslint/js": "^9.31.0",
+    "@types/eslint__js": "^8.42.3",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@types/react-router-dom": "^5.3.3",
     "babel-loader": "^9.1.0",
     "css-loader": "^6.8.0",
+    "eslint": "^9.31.0",
     "html-webpack-plugin": "^5.5.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
     "style-loader": "^3.3.0",
     "ts-loader": "^9.5.2",
     "typescript": "^5.8.3",
+    "typescript-eslint": "^8.37.0",
     "webpack": "^5.88.0",
     "webpack-cli": "^5.1.0",
     "webpack-dev-server": "^4.15.0"
