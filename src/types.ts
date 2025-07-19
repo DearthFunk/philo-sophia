@@ -10,6 +10,7 @@ export interface Term {
   word: string;
   definition: string;
   foundWords: string[];
+  isCustom?: boolean; // Flag for user-added custom terms
 }
 
 export interface Terms {

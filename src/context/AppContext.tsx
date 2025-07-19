@@ -29,6 +29,8 @@ interface AppContextType {
   setSearchTerm: (term: string) => void;                    // Update search term
   updateSettings: (newSettings: Settings) => void;          // Update and persist settings
   setCustomizeEnabled: (enabled: boolean) => void;         // Toggle customize mode
+  addCustomTerm: (word: string, definition: string) => void; // Add a new custom term
+  updateCustomTerm: (word: string, definition: string) => void; // Update existing custom term
   
   // Handlers - event handlers for UI interactions
   handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;  // Search input typing
@@ -274,6 +276,63 @@ selectedTermsFile: parsedSettings.selectedTermsFile || TermsFile.PHILOSOPHY,
     }
   }, [settings.quickErase]);
 
+  // === CUSTOM TERMS MANAGEMENT ===
+  
+  /**
+   * Adds a new custom term to the current terms list
+   */
+  const addCustomTerm = useCallback((word: string, definition: string = '') => {
+    const newTerm: Term = {
+      word: word.trim(),
+      definition: definition.trim(),
+      foundWords: [],
+      isCustom: true
+    };
+    
+    setTerms(prevTerms => {
+      // Check if term already exists
+      const existingIndex = prevTerms.findIndex(t => t.word.toLowerCase() === word.toLowerCase());
+      if (existingIndex !== -1) {
+        // Update existing term
+        const updatedTerms = [...prevTerms];
+        updatedTerms[existingIndex] = { ...updatedTerms[existingIndex], ...newTerm };
+        return updatedTerms;
+      } else {
+        // Add new term
+        return [...prevTerms, newTerm];
+      }
+    });
+  }, []);
+  
+  /**
+   * Updates an existing custom term's definition and recalculates foundWords
+   */
+  const updateCustomTerm = useCallback((word: string, definition: string) => {
+    setTerms(prevTerms => {
+      const updatedTerms = prevTerms.map(term => {
+        if (term.word === word && term.isCustom) {
+          // Get all available term words for cross-reference detection
+          const allTermWords = prevTerms.map(t => t.word);
+          
+          // Find words in the new definition that are also terms
+          const definitionWords = definition.trim().split(' ');
+          const foundWords = definitionWords.filter(defWord =>
+            allTermWords.includes(defWord) && defWord !== word // Exclude self-reference
+          );
+          
+          return {
+            ...term,
+            definition: definition.trim(),
+            foundWords: Array.from(new Set(foundWords)) // Remove duplicates
+          };
+        }
+        return term;
+      });
+      
+      return updatedTerms;
+    });
+  }, []);
+
   // === EFFECTS ===
   
   // Load customize preference and settings on app startup
@@ -308,12 +367,11 @@ selectedTermsFile: parsedSettings.selectedTermsFile || TermsFile.PHILOSOPHY,
     performSearch(searchTerm);
   }, [searchTerm, performSearch]);
 
-  // Reset search when user changes terms file
+  // Reset search when user changes terms file (but not when adding custom terms)
   // Clear search input and show all terms from the new file
   useEffect(() => {
     setSearchTerm('');
-    setSearchResults(terms);
-  }, [settings.selectedTermsFile, terms]);
+  }, [settings.selectedTermsFile]); // Only reset on terms file change, not when terms array changes
 
   // === CONTEXT VALUE ===
   // Package all state and functions into the context value
@@ -328,6 +386,8 @@ selectedTermsFile: parsedSettings.selectedTermsFile || TermsFile.PHILOSOPHY,
     setSearchTerm,     // Update search term (triggers search via useEffect)
     updateSettings,    // Update and persist settings
     setCustomizeEnabled, // Toggle customize mode
+    addCustomTerm,     // Add new custom term
+    updateCustomTerm,  // Update existing custom term
     // Event handlers
     handleInputChange, // Handle search input typing
     handleKeyDown,     // Handle keyboard shortcuts

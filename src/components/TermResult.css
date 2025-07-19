@@ -102,3 +102,61 @@
     background-color: var(--interactive-secondary);
     border-color: var(--border-strong);
 }
+
+/* Custom definition editing styles */
+.custom-definition {
+    font-style: italic;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+.custom-definition:hover {
+    opacity: 1;
+}
+
+.definition-editor {
+    margin: 10px;
+}
+
+.definition-input {
+    width: 100%;
+    min-height: 60px;
+    padding: 8px;
+    border: 2px solid var(--interactive-primary);
+    border-radius: 4px;
+    background-color: var(--surface-tertiary);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 14px;
+    resize: vertical;
+    outline: none;
+}
+
+.definition-input::placeholder {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.edit-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.save-button {
+    background-color: var(--status-success);
+    color: var(--interactive-text);
+    border: none;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.cancel-button {
+    background-color: var(--status-error);
+    color: var(--interactive-text);
+    border: none;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+}

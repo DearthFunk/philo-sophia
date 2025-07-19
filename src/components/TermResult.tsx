@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState, useEffect } from 'react';
 import { Term } from '../types';
 import { integrationManager } from '../services/integrationManager';
 import { useAppContext } from '../context/AppContext';
@@ -12,13 +12,16 @@ interface TermResultProps {
 
 const TermResult: React.FC<TermResultProps> = ({ term }) => {
   const enabledIntegrations = integrationManager.getEnabledIntegrations();
-  const { terms, setSearchTerm, settings, searchTerm } = useAppContext();
+  const { terms, setSearchTerm, settings, searchTerm, updateCustomTerm } = useAppContext();
   const definitionRef = useRef<HTMLParagraphElement>(null);
   const isExactMatch = searchTerm.toLowerCase() === term.word.toLowerCase();
   const [activeTooltip, setActiveTooltip] = useState<{
     integration: Integration;
     triggerElement: HTMLElement;
   } | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [editValue, setEditValue] = useState(term.definition);
 
   const getDefinition = useCallback((word: string): string => {
       const term = terms.find((item) => item.word === word);
@@ -78,6 +81,42 @@ const TermResult: React.FC<TermResultProps> = ({ term }) => {
     }
   };
 
+  const handleDefinitionEdit = () => {
+    if (term.isCustom) {
+      setIsEditing(true);
+    }
+  };
+
+  const handleDefinitionSave = () => {
+    if (term.isCustom) {
+      updateCustomTerm(term.word, editValue);
+      setIsEditing(false);
+    }
+  };
+
+  const handleDefinitionCancel = () => {
+    setEditValue(term.definition);
+    setIsEditing(false);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' && event.shiftKey === false) {
+      event.preventDefault();
+      handleDefinitionSave();
+    } else if (event.key === 'Escape') {
+      handleDefinitionCancel();
+    }
+  };
+
+  // Sync editValue with term definition when it changes
+  useEffect(() => {
+    setEditValue(term.definition);
+  }, [term.definition]);
+
+  // Determine if we should show editing interface
+  const shouldShowEditor = term.isCustom && (isEditing || (!term.definition.trim() && searchTerm));
+  const shouldShowHoverEditor = term.isCustom && !searchTerm && isHovered && term.definition.trim();
+
   return (
     <div className="term-result">
       <h2>
@@ -97,13 +136,41 @@ const TermResult: React.FC<TermResultProps> = ({ term }) => {
           ))}
         </div>
       </h2>
-      <p 
-        ref={definitionRef}
-        onClick={handleDefinitionClick}
-        style={{ cursor: settings.selectOnClick ? 'pointer' : '' }}
-      >
-        {term.definition}
-      </p>
+      
+      {/* Definition section with editing capability */}
+      {shouldShowEditor || shouldShowHoverEditor ? (
+        <div className="definition-editor">
+          <textarea
+            value={editValue}
+            onChange={(e) => setEditValue(e.target.value)}
+            onKeyDown={handleKeyDown}
+            onBlur={handleDefinitionSave}
+            autoFocus
+            placeholder="Enter definition..."
+            className="definition-input"
+          />
+          {isEditing && (
+            <div className="edit-buttons">
+              <button onClick={handleDefinitionSave} className="save-button">Save</button>
+              <button onClick={handleDefinitionCancel} className="cancel-button">Cancel</button>
+            </div>
+          )}
+        </div>
+      ) : (
+        <p 
+          ref={definitionRef}
+          onClick={term.isCustom ? handleDefinitionEdit : handleDefinitionClick}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          style={{ 
+            cursor: term.isCustom ? 'text' : (settings.selectOnClick ? 'pointer' : ''),
+            minHeight: term.isCustom && !term.definition.trim() ? '20px' : 'auto'
+          }}
+          className={term.isCustom ? 'custom-definition' : ''}
+        >
+          {term.definition || (term.isCustom ? 'Click to add definition...' : '')}
+        </p>
+      )}
       {term.foundWords.map((foundWord) => (
         <div key={foundWord} className="found-words">
           <button

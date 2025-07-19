@@ -21,8 +21,9 @@
   margin: 0;
   color: var(--text-muted);
   padding: 5px;
-  border-radius: 5px;
-  border: 1px solid var(--border-strong);
+  border: 2px solid var(--interactive-primary);
+  border-radius: 4px;
+  background-color: var(--surface-tertiary);
   flex: 1;
   max-width: 400px;
 }
