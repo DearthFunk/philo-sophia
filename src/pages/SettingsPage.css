@@ -184,3 +184,41 @@
 .delete-button:hover {
   background: var(--status-error);
 }
+
+/* JSON format info styles */
+.json-format-info {
+  margin-top: 20px;
+  padding: 16px;
+  background: var(--surface-tertiary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+}
+
+.info-title {
+  margin: 0 0 8px 0;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.info-text {
+  margin: 8px 0;
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.4;
+  font-style: normal;
+}
+
+.code-example {
+  margin: 12px 0;
+  padding: 12px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  font-family: 'Courier New', Consolas, monospace;
+}
+
+.code-example code {
+  color: var(--text-primary);
+  font-size: 12px;
+  line-height: 1.6;
+}

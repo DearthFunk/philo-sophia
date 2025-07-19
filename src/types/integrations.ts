@@ -5,8 +5,8 @@ export interface Integration {
   name: string;
   icon: string;
   description: string;
-  fetchData: (word: string) => Promise<IntegrationData>;
   enabled: boolean;
+  fetchData: (word: string) => Promise<IntegrationData>;
   tooltipTemplate?: (data: any, word: string) => React.ReactElement;
 }
 

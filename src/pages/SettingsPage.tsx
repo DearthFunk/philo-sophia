@@ -247,6 +247,20 @@ const SettingsPage: React.FC = () => {
                   onChange={handleFileUpload}
                 />
               </div>
+              <div className="json-format-info">
+                <p className="info-title"><strong>JSON File Format:</strong></p>
+                <p className="info-text">Your JSON file should contain key-value pairs where each key is a term and each value is its definition:</p>
+                <div className="code-example">
+                  <code>
+                    {`{`}<br/>
+                    &nbsp;&nbsp;"term1": "Definition of term1",<br/>
+                    &nbsp;&nbsp;"term2": "Definition of term2",<br/>
+                    &nbsp;&nbsp;"example term": "A longer definition explaining the concept in detail."<br/>
+                    {`}`}
+                  </code>
+                </div>
+                <p className="info-text">• Use double quotes for both keys and values<br/>• Separate entries with commas<br/>• No comma after the last entry</p>
+              </div>
             </div>
           )}
         </div>
