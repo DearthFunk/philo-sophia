@@ -21,7 +21,7 @@ const SettingsPage: React.FC = () => {
   
   // Theme management
   const availableThemes: Theme[] = ['default', 'light', 'dark', 'rainbow'];
-  const [currentTheme, setCurrentTheme] = useState<Theme>(() => {
+  const [_, setCurrentTheme] = useState<Theme>(() => {
     const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) as Theme;
     return availableThemes.includes(savedTheme) ? savedTheme : 'default';
   });
@@ -138,7 +138,7 @@ const SettingsPage: React.FC = () => {
             });
           }
         } catch (error) {
-          alert('Invalid JSON file. Please upload a valid terms list.');
+          alert(`Invalid JSON file. Please upload a valid terms list. Error ${JSON.stringify(error)}`);
         }
       };
       reader.readAsText(file);

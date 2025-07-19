@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { Term, TermsFile, Settings, TermsFileType } from '../types';
+import { Term, TermsFile, Settings } from '../types';
 import { integrationManager } from '../services/integrationManager';
 import philosophyTerms from '../terms/philosobabel.json';
 import scienceTerms from '../terms/sciencebabel.json';

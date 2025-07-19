@@ -30,7 +30,7 @@ const IntegrationTooltip: React.FC<IntegrationTooltipProps> = ({
         setData({
           success: false,
           error: 'Failed to fetch data',
-          fallbackMessage: `Could not load ${integration.name} data for "${word}"`
+          fallbackMessage: `Could not load ${integration.name} data for "${word}". Error ${JSON.stringify(error)}`
         });
       } finally {
         setLoading(false);

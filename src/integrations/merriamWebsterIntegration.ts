@@ -2,33 +2,6 @@ import React from 'react';
 import { Integration, IntegrationData } from '../types/integrations';
 import MerriamWebsterTooltip from './templates/MerriamWebsterTooltip';
 
-interface MerriamWebsterResponse {
-  meta: {
-    id: string;
-    uuid: string;
-    src: string;
-    section: string;
-    stems: string[];
-    offensive: boolean;
-  };
-  hwi: {
-    hw: string;
-    prs?: Array<{
-      mw: string;
-      sound?: {
-        audio: string;
-      };
-    }>;
-  };
-  fl: string; // functional label (part of speech)
-  def: Array<{
-    sseq: Array<any>; // sense sequence
-  }>;
-  et?: Array<Array<string>>; // etymology
-  date?: string;
-  shortdef: string[];
-}
-
 const fetchMerriamWebsterData = async (word: string): Promise<IntegrationData> => {
   try {
     // Note: Merriam-Webster API requires a free API key

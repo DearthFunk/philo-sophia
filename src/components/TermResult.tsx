@@ -14,7 +14,6 @@ const TermResult: React.FC<TermResultProps> = ({ term }) => {
   const enabledIntegrations = integrationManager.getEnabledIntegrations();
   const { terms, setSearchTerm, settings, searchTerm, updateCustomTerm } = useAppContext();
   const definitionRef = useRef<HTMLParagraphElement>(null);
-  const isExactMatch = searchTerm.toLowerCase() === term.word.toLowerCase();
   const [activeTooltip, setActiveTooltip] = useState<{
     integration: Integration;
     triggerElement: HTMLElement;

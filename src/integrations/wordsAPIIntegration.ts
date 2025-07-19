@@ -2,22 +2,6 @@ import React from 'react';
 import { Integration, IntegrationData } from '../types/integrations';
 import WordsAPITooltip from './templates/WordsAPITooltip';
 
-interface WordsAPIResponse {
-  word: string;
-  results?: Array<{
-    definition: string;
-    partOfSpeech: string;
-    synonyms?: string[];
-    antonyms?: string[];
-    examples?: string[];
-    derivation?: string[];
-  }>;
-  pronunciation?: {
-    all?: string;
-  };
-  frequency?: number;
-}
-
 const fetchWordsAPIData = async (word: string): Promise<IntegrationData> => {
   try {
     // Note: WordsAPI requires an API key from RapidAPI

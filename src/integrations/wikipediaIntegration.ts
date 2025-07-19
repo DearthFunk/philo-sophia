@@ -2,17 +2,6 @@ import React from 'react';
 import { Integration, IntegrationData } from '../types/integrations';
 import WikipediaTooltip from './templates/WikipediaTooltip';
 
-interface WikipediaSearchResponse {
-  query: {
-    search: Array<{
-      title: string;
-      snippet: string;
-      size: number;
-      timestamp: string;
-    }>;
-  };
-}
-
 const fetchWikipediaData = async (word: string): Promise<IntegrationData> => {
   try {
     const searchUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(word)}`;
