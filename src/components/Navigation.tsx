@@ -15,6 +15,10 @@ const Navigation: React.FC = () => {
     navigate('/settings');
   };
 
+  const handleInfoClick = () => {
+    navigate('/info');
+  };
+
   const addNewTerm = () => {
     if (searchTerm.trim() && !termExists(searchTerm.trim())) {
       const termToAdd = searchTerm.trim();
@@ -65,6 +69,14 @@ const Navigation: React.FC = () => {
             +
           </button>
         )}
+        <button 
+          onClick={handleInfoClick}
+          aria-label="Open info"
+          tabIndex={4}
+          className="info-button"
+        >
+          ⓘ
+        </button>
       </div>
     </nav>
   );

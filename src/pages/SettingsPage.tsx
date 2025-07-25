@@ -355,14 +355,6 @@ const SettingsPage: React.FC = () => {
               )}
             </div>
           </div>
-          <div className="item">
-            <p className="cache-help">
-              <strong>Tip:</strong> Right-click any integration button (📖 🌐 📝 📘) to clear cache for that specific term.
-            </p>
-            <p className="cache-help">
-              <strong>Clear All Data:</strong> Clears integration cache, resets all settings to defaults, and disables customize mode.
-            </p>
-          </div>
         </div>
       </div>
     </div>

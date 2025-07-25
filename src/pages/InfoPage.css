@@ -1,0 +1,13 @@
+
+.info {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin: 0;
+  padding: 8px 0;
+}
+
+.info strong {
+  color: var(--text-primary);
+  font-style: normal;
+}

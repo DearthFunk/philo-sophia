@@ -107,19 +107,6 @@
   animation: fadeInOut 3s ease-in-out;
 }
 
-.cache-help {
-  font-size: 13px;
-  color: var(--text-secondary);
-  font-style: italic;
-  margin: 0;
-  padding: 8px 0;
-}
-
-.cache-help strong {
-  color: var(--text-primary);
-  font-style: normal;
-}
-
 @keyframes fadeInOut {
   0% { opacity: 0; transform: translateY(-10px); }
   20% { opacity: 1; transform: translateY(0); }

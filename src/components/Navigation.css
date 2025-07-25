@@ -1,4 +1,15 @@
 /* Navigation Styles */
+.info-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--interactive-primary);
+  margin-left: auto;
+}
+.info-button:hover {
+  border: none;
+}
+
 .navigation {
   background: var(--surface-base);
   border-bottom: 1px solid var(--border-strong);
@@ -11,6 +22,7 @@
 .nav-content {
   display: flex;
   align-items: center;
+  justify-content: left;
   gap: 20px;
   padding: 15px 20px;
   max-width: 1200px;
