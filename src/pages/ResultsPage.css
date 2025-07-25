@@ -1,8 +1,4 @@
 /* Results Page Styles */
-.results-page {
-  min-height: 50vh;
-}
-
 .no-results {
   display: flex;
   flex-direction: column;
@@ -17,20 +13,4 @@
   font-size: 18px;
   margin: 0 0 16px 0;
   font-style: normal;
-}
-
-.add-term-button {
-  background-color: var(--interactive-primary);
-  color: var(--interactive-text);
-  border: 1px solid var(--border-subtle);
-  padding: 12px 20px;
-  font-size: 14px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-}
-
-.add-term-button:hover {
-  opacity: 0.9;
-  border-color: var(--border-strong);
 }
