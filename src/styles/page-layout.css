@@ -1,0 +1,65 @@
+/* Shared page layout styles for Settings, NewTerm, and Info pages */
+
+.page-layout .content {
+  background: var(--surface-base);
+  border: 1px solid var(--border-subtle);
+  border-radius: 5px;
+  box-shadow: var(--shadow);
+  min-width: auto;
+  margin-top: 0;
+  overflow: hidden;
+  position: static;
+}
+
+.page-layout .content .section {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.page-layout .content .section:last-child {
+  border-bottom: none;
+}
+
+.page-layout .content .section .title {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 16px 20px 10px 20px;
+  background-color: var(--surface-elevated);
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 0;
+}
+
+.page-layout .item {
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.page-layout .item:last-child {
+  border-bottom: none;
+}
+
+.page-layout .item label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+
+.page-layout .item label:has(input:disabled) {
+  cursor: not-allowed;
+}
+
+.page-layout .item input:disabled {
+  cursor: not-allowed;
+  opacity: var(0.7);
+}
+
+.page-layout.customize-disabled .item label {
+  opacity: var(0.5);
+}

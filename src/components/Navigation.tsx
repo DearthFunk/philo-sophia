@@ -5,7 +5,8 @@ import './Navigation.css';
 
 const Navigation: React.FC = () => {
   const navigate = useNavigate();
-  const { settings, searchTerm, handleInputChange, handleKeyDown, addCustomTerm, setSearchTerm, terms, searchResults } = useAppContext();
+  const { settings, searchResults, searchTerm, handleInputChange, handleKeyDown } = useAppContext();
+  const showAddNewButton = searchResults.length > 0;
 
   const handleFocus = () => {
     navigate('/');
@@ -19,27 +20,10 @@ const Navigation: React.FC = () => {
     navigate('/info');
   };
 
-  const addNewTerm = () => {
-    if (searchTerm.trim() && !termExists(searchTerm.trim())) {
-      const termToAdd = searchTerm.trim();
-      addCustomTerm(termToAdd, '');
-      // Keep the search term in the input to show the newly added term
-      setSearchTerm(termToAdd);
-    }
-  };
-
-  // Helper function to check if the term already exists
-  const termExists = (term: string): boolean => {
-    if (!term) return false;
-    const exists = terms.some(existingTerm => 
-      existingTerm.word.toLowerCase() === term.toLowerCase()
-    );
-    return exists;
+  const handleAddNewTerm = () => {
+    navigate('/new');
   };
   
-  // Determine button visibility and state
-  const isButtonDisabled = termExists(searchTerm.trim());
-  const shouldShowButton = !(searchResults.length === 0);
   return (
     <nav className="navigation">
       <div className="nav-content">
@@ -60,10 +44,9 @@ const Navigation: React.FC = () => {
           placeholder={`Search ${settings.selectedTermsFile} terms...`}
           tabIndex={2}
         />
-        {shouldShowButton && (
+        {showAddNewButton && (
           <button
-            onClick={addNewTerm}
-            disabled={isButtonDisabled}
+            onClick={handleAddNewTerm}
             tabIndex={3}
             aria-label="Add new term">
             +
@@ -72,7 +55,7 @@ const Navigation: React.FC = () => {
         <button 
           onClick={handleInfoClick}
           aria-label="Open info"
-          tabIndex={4}
+          tabIndex={99}
           className="info-button"
         >
           ⓘ

@@ -2,17 +2,14 @@ import React from 'react';
 import { useAppContext } from '../context/AppContext';
 import TermResult from '../components/TermResult';
 import './ResultsPage.css';
+import { useNavigate } from 'react-router-dom';
 
 const ResultsPage: React.FC = () => {
-  const { searchResults, searchTerm, addCustomTerm, setSearchTerm } = useAppContext();
+  const navigate = useNavigate();
+  const { searchResults, searchTerm} = useAppContext();
 
   const handleAddTerm = () => {
-    if (searchTerm.trim()) {
-      const termToAdd = searchTerm.trim();
-      addCustomTerm(termToAdd, '');
-      // Keep the search term in the input to show the newly added term
-      setSearchTerm(termToAdd);
-    }
+    navigate('/new');
   };
 
   return (

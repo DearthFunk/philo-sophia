@@ -124,7 +124,7 @@ const TermResult: React.FC<TermResultProps> = ({ term }) => {
           {enabledIntegrations.map((integration) => (
             <button
               className="integration-trigger"
-              tabIndex={3}
+              tabIndex={4}
               key={`${integration.id}-${term.word}`}
               title={`${integration.description} | Right-click to clear cache`}
               onClick={(event) => showIntegrationInfo(integration, event)}
@@ -175,7 +175,7 @@ const TermResult: React.FC<TermResultProps> = ({ term }) => {
           <button
             key={foundWord}
             className="found-word"
-            tabIndex={3}
+            tabIndex={5}
             onClick={() => updateSearchTerm(foundWord)}
           >
             <b>{foundWord}</b>: <span>{getDefinition(foundWord)}</span>

@@ -4,6 +4,7 @@ import { useAppContext } from '../context/AppContext';
 import { integrationManager } from '../services/integrationManager';
 import { storageService } from '../services/storage';
 
+import '../styles/page-layout.css';
 import './SettingsPage.css';
 import '../themes/default.css';
 import '../themes/light.css';
@@ -166,7 +167,7 @@ const SettingsPage: React.FC = () => {
   };
 
   return (
-    <div className={`settings-page ${!customizeEnabled ? 'customize-disabled' : ''}`}>
+    <div className={`page-layout ${!customizeEnabled ? 'customize-disabled' : ''}`}>
       <h1>Settings</h1>
       <div className="content">
         <div className="section">

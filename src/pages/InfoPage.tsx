@@ -1,13 +1,14 @@
 import React from 'react';
 import { useAppContext } from '../context/AppContext';
 
-import './SettingsPage.css'; // Reuse the same styles as settings
+import '../styles/page-layout.css';
 import './InfoPage.css';
 
 const InfoPage: React.FC = () => {
   const { customizeEnabled } = useAppContext();
   return (
-    <div className={`settings-page ${!customizeEnabled ? 'customize-disabled' : ''}`}>
+    <div className={`page-layout ${!customizeEnabled ? 'customize-disabled' : ''}`}>
+      <h1>Info</h1>
       <div className="content">
         <div className="section">
           <div className="title">Info / Tips</div>

@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import ResultsPage from './pages/ResultsPage';
 import SettingsPage from './pages/SettingsPage';
 import InfoPage from './pages/InfoPage';
+import NewTermPage from './pages/NewTermPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 import './themes/default.css';
@@ -94,6 +95,7 @@ const App: React.FC = () => {
       <ThemeManager />
       <Routes>
         <Route path="/" element={<Layout><ResultsPage /></Layout>} />
+        <Route path="/new" element={<Layout><NewTermPage /></Layout>} />
         <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
         <Route path="/info" element={<Layout><InfoPage /></Layout>} />
         <Route path="*" element={<NotFoundPage />} />
